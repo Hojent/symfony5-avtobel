@@ -1,0 +1,41 @@
+{% extends 'admin/main.html.twig' %}
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/extra-libs/multicheck/multicheck.css') }}">
+    <link href="{{ asset('assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css')}}" rel="stylesheet">
+{%  endblock %}
+{% block content %}
+     <div class="row">
+         <div class="col-12">
+             <div class="card">
+                 <div class="card-body">
+                     <h5 class="card-title">Добавить категорию</h5>
+
+                     {{ form_start(form) }}
+                     {{ form_widget(form) }}
+                     <a href="{{ path('admin_category_index') }}" class="btn btn-link">
+                         <i class="fa fa-list-alt" aria-hidden="true"></i> Cancel
+                     </a>
+                     {{ form_end(form) }}
+
+                 </div>
+             </div>
+         </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+<!--This page JavaScript -->
+    <script src="{{ asset('assets/extra-libs/multicheck/datatable-checkbox-init.js')}}"></script>
+    <script src="{{ asset('assets/extra-libs/multicheck/jquery.multicheck.js')}}"></script>
+    <script src="{{ asset('assets/extra-libs/DataTables/datatables.min.js')}}"></script>
+    <script>
+        /****************************************
+         *       Basic Table                   *
+         ****************************************/
+        $('#zero_config').DataTable();
+    </script>
+
+{% endblock %}
+
+
+
+

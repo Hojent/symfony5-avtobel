@@ -1,0 +1,106 @@
+{% extends 'admin/main.html.twig' %}
+{% block main %}
+    <div class="row">
+        <!-- column -->
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Latest Posts</h4>
+                </div>
+                <div class="comment-widgets scrollable">
+                    <!-- Comment Row -->
+                    <div class="d-flex flex-row comment-row m-t-0">
+                        <div class="p-2"><img src="assets/images/users/1.jpg" alt="user" width="50" class="rounded-circle"></div>
+                        <div class="comment-text w-100">
+                            <h6 class="font-medium">James Anderson</h6>
+                            <span class="m-b-15 d-block">Lorem Ipsum is simply dummy text of the printing and type setting industry. </span>
+                            <div class="comment-footer">
+                                <span class="text-muted float-right">April 14, 2016</span>
+                                <button type="button" class="btn btn-cyan btn-sm">Edit</button>
+                                <button type="button" class="btn btn-success btn-sm">Publish</button>
+                                <button type="button" class="btn btn-danger btn-sm">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Comment Row -->
+                    <div class="d-flex flex-row comment-row">
+                        <div class="p-2"><img src="assets/images/users/4.jpg" alt="user" width="50" class="rounded-circle"></div>
+                        <div class="comment-text active w-100">
+                            <h6 class="font-medium">Michael Jorden</h6>
+                            <span class="m-b-15 d-block">Lorem Ipsum is simply dummy text of the printing and type setting industry. </span>
+                            <div class="comment-footer">
+                                <span class="text-muted float-right">May 10, 2016</span>
+                                <button type="button" class="btn btn-cyan btn-sm">Edit</button>
+                                <button type="button" class="btn btn-success btn-sm">Publish</button>
+                                <button type="button" class="btn btn-danger btn-sm">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Comment Row -->
+                    <div class="d-flex flex-row comment-row">
+                        <div class="p-2"><img src="assets/images/users/5.jpg" alt="user" width="50" class="rounded-circle"></div>
+                        <div class="comment-text w-100">
+                            <h6 class="font-medium">Johnathan Doeting</h6>
+                            <span class="m-b-15 d-block">Lorem Ipsum is simply dummy text of the printing and type setting industry. </span>
+                            <div class="comment-footer">
+                                <span class="text-muted float-right">August 1, 2016</span>
+                                <button type="button" class="btn btn-cyan btn-sm">Edit</button>
+                                <button type="button" class="btn btn-success btn-sm">Publish</button>
+                                <button type="button" class="btn btn-danger btn-sm">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Card -->
+
+            <!-- card -->
+            <!-- card new -->
+
+        </div>
+        <!-- column -->
+
+        <div class="col-lg-6">
+
+            <!-- Tabs -->
+            <div class="card">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#home" role="tab"><span class="hidden-sm-up"></span> <span class="hidden-xs-down">Tab1</span></a> </li>
+                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#profile" role="tab"><span class="hidden-sm-up"></span> <span class="hidden-xs-down">Tab2</span></a> </li>
+                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#messages" role="tab"><span class="hidden-sm-up"></span> <span class="hidden-xs-down">Tab3</span></a> </li>
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content tabcontent-border">
+                    <div class="tab-pane active" id="home" role="tabpanel">
+                        <div class="p-20">
+                            <p>And is full of waffle to It has multiple paragraphs and is full of waffle to pad out the comment. Usually, you just wish these sorts of comments would come to an end.multiple paragraphs and is full of waffle to pad out the comment..</p>
+                            <img src="assets/images/background/img4.jpg" class="img-fluid">
+                        </div>
+                    </div>
+                    <div class="tab-pane  p-20" id="profile" role="tabpanel">
+                        <div class="p-20">
+                            <img src="assets/images/background/img4.jpg" class="img-fluid">
+                            <p class="m-t-10">And is full of waffle to It has multiple paragraphs and is full of waffle to pad out the comment. Usually, you just wish these sorts of comments would come to an end.multiple paragraphs and is full of waffle to pad out the comment..</p>
+                        </div>
+                    </div>
+                    <div class="tab-pane p-20" id="messages" role="tabpanel">
+                        <div class="p-20">
+                            <p>And is full of waffle to It has multiple paragraphs and is full of waffle to pad out the comment. Usually, you just wish these sorts of comments would come to an end.multiple paragraphs and is full of waffle to pad out the comment..</p>
+                            <img src="assets/images/background/img4.jpg" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+
+<!--This page JavaScript -->
+
+{% endblock %}
+
+
+
+

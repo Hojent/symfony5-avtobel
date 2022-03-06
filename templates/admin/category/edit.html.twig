@@ -1,0 +1,30 @@
+{% extends 'admin/main.html.twig' %}
+{% block styles %}
+{%  endblock %}
+{% block main %}
+     <div class="row">
+         <div class="col-12">
+             <div class="card">
+                 <div class="card-body">
+                     <h5 class="card-title">Редактировать категорию</h5>
+
+                     {{ form_start(form) }}
+                     {{ form_widget(form) }}
+                     <a href="{{ path('admin_category_index') }}" class="btn btn-link float-right">
+                         <i class="fa fa-list-alt" aria-hidden="true"></i> Cancel
+                     </a>
+                     {{ form_end(form) }}
+
+                 </div>
+             </div>
+         </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+<!--This page JavaScript -->
+
+{% endblock %}
+
+
+
+
