@@ -1,20 +1,75 @@
 {% extends 'admin/main.html.twig' %}
-{% block styles %}
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/extra-libs/multicheck/multicheck.css') }}">
-    <link href="{{ asset('assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css')}}" rel="stylesheet">
-{%  endblock %}
-{% block content %}
+{% block main %}
      <div class="row">
          <div class="col-12">
              <div class="card">
-                 <div class="card-body">
+                 <div class="card-header">
                      <h5 class="card-title">Добавить категорию</h5>
-
+                 </div>
+                 <div class="card-body">
                      {{ form_start(form) }}
-                     {{ form_widget(form) }}
+                     <div class="my-custom-class-for-errors">
+                         {{ form_errors(form) }}
+                     </div>
+                   <div class="row">
+                        <label class="col-lg-6" for="title">Название категории
+                           {{ form_widget(form.title,
+                               {'attr':
+                                   {'class': 'form-control','id':'title'}
+                               }) }}
+                        </label>
+
+                       <label class="col-lg-6" for="title">Alias
+                           {{ form_widget(form.alias,
+                               {'attr':
+                                   {'class': 'form-control','id':'alias'}
+                               }) }}
+                       </label>
+                       <label class="col-lg-12" for="description">Описание
+                           {{ form_widget(form.description,
+                               {'attr':
+                                   {'class': 'form-control','id':'description'}
+                               }) }}
+                       </label>
+                       <label class="col-lg-6" for="parent">
+                           Родительская категория
+                           {{ form_widget(form.parent,
+                               {'attr':
+                                   {'class': 'form-control','id':'parent'}
+                               }) }}
+                       </label>
+                       <div class="form-control col-lg-4">
+                       <div class="form-check">
+                                {{ form_widget(form.published,
+                                    {'attr':
+                                        {'class': 'form-check-input',
+                                            'id':'published',
+                                            'type':'checkbox'
+                                        }
+                                    }) }}
+                                <label class="form-check-label" for="published">
+                                    Опубликовано
+                                </label>
+                       </div>
+                       </div>
+                       <label class="col-lg-12" for="metakey">Ключевые слова
+                           {{ form_widget(form.metakey,
+                               {'attr':
+                                   {'class': 'form-control','id':'metakey'}
+                               }) }}
+                       </label>
+                       <label class="col-lg-12" for="metadesc">Мета-описание
+                           {{ form_widget(form.metadesc,
+                               {'attr':
+                                   {'class': 'form-control','id':'description'}
+                               }) }}
+                       </label>
+                   </div>
+
                      <a href="{{ path('admin_category_index') }}" class="btn btn-link">
                          <i class="fa fa-list-alt" aria-hidden="true"></i> Cancel
                      </a>
+
                      {{ form_end(form) }}
 
                  </div>
@@ -22,19 +77,8 @@
          </div>
     </div>
 {% endblock %}
-{% block scripts %}
-<!--This page JavaScript -->
-    <script src="{{ asset('assets/extra-libs/multicheck/datatable-checkbox-init.js')}}"></script>
-    <script src="{{ asset('assets/extra-libs/multicheck/jquery.multicheck.js')}}"></script>
-    <script src="{{ asset('assets/extra-libs/DataTables/datatables.min.js')}}"></script>
-    <script>
-        /****************************************
-         *       Basic Table                   *
-         ****************************************/
-        $('#zero_config').DataTable();
-    </script>
 
-{% endblock %}
+
 
 
 

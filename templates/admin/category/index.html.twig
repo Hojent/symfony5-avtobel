@@ -7,10 +7,13 @@
      <div class="row">
          <div class="col-12">
              <div class="card">
+                 <div class="card-header">
+                     <h5 class="card-title">Категории
+                         <span class="float-right">
+                             <a class="btn btn-success" href="{{ path('admin_category_new') }}">Добавить</a></span>
+                     </h5>
+                 </div>
                  <div class="card-body">
-                     <h5 class="card-title">Категории <span class="float-right">
-                             <a class="btn btn-success" href="{{ path('admin_category_new') }}">Добавить</a></span></h5>
-
                      <div class="table-responsive">
                          <table id="zero_config" class="table table-striped table-bordered">
                              <thead>
@@ -31,7 +34,7 @@
                                     <a href="{{ path('admin_category_edit', { 'id': category.id }) }}">{{ category.title}}</a>
                                  </td>
 
-                                 <td>{{ category.parentId}}</td>
+                                 <td>category.parent</td>
                                  <td>{{ category.published}}</td>
                                  <td>{{ category.createdTime|date('d-m-Y')}}</td>
                                  <td>

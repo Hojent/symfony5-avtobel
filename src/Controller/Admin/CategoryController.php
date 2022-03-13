@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @Route("/admin/category")
@@ -28,22 +29,31 @@ class CategoryController extends AbstractController
     /**
      * @Route("/new", name="admin_category_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(ManagerRegistry $doctrine, Request $request): Response
     {
+        $entityManager = $doctrine->getManager();
+        // just set up a fresh $task object (remove the example data)
         $category = new Category();
-        $form = $this->createForm(CategoryType::class, $category);
-        $form->handleRequest($request);
 
+        $form = $this->createForm(CategoryType::class, $category);
+
+        $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
+            // $form->getData() holds the submitted values
+            // but, the original `$task` variable has also been updated
+            $category = $form->getData();
+
+            // ... perform some action, such as saving the task to the database
+            // tell Doctrine you want to (eventually) save the Product (no queries yet)
             $entityManager->persist($category);
+
+            // actually executes the queries (i.e. the INSERT query)
             $entityManager->flush();
 
-            return $this->redirectToRoute('admin_category_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('admin_category_index');
         }
 
         return $this->renderForm('admin/category/new.html.twig', [
-            'category' => $category,
             'form' => $form,
         ]);
     }

@@ -5,6 +5,9 @@ namespace App\Entity;
 use App\Repository\CategoryRepository;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\JoinColumn;
 
 /**
  * @ORM\Entity(repositoryClass=CategoryRepository::class)
@@ -29,16 +32,25 @@ class Category
      */
     private $alias;
 
+    // ...
+    /**
+     * One Category has Many Categories.
+     * @OneToMany(targetEntity="Category", mappedBy="parent")
+     */
+    private $children;
+
+    /**
+     * Many Categories have One Category.
+     * @ManyToOne(targetEntity="Category", inversedBy="children")
+     * @JoinColumn(name="parent_id", referencedColumnName="id")
+     */
+    private $parent;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $description;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $parent_id;
 
     /**
      * @ORM\Column(type="boolean")
@@ -104,14 +116,14 @@ class Category
         return $this;
     }
 
-    public function getParentId(): ?int
+    public function getParent()
     {
-        return $this->parent_id;
+        return $this->parent;
     }
 
-    public function setParentId(?int $parent_id): self
+    public function setParent(Category $parent = null): self
     {
-        $this->parent_id = $parent_id;
+        $this->parent = $parent;
 
         return $this;
     }
