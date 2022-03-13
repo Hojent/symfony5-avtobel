@@ -1,0 +1,58 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+
+   <a class="navbar-brand" href="#page-top"><i class="fa fa-truck"></i> Автомобили в Беларуси</a>
+   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+   <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+         <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ path('home') }}"><i class="fa fa-home"></i> Главная</a></li>
+         <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-arrows"></i> Карта сайта</a></li>
+         <li class="nav-item"><a class="nav-link" target="_blank" href="http://www.tsouz.ru/db/ettr/ettwto/Pages/ett87.aspx"><i class="fa fa-book"></i>  Таможенные пошлины ТС</a></li>
+      </ul>
+   </div>
+
+</nav>
+<img class="w-100" src="{{ asset('assets/front/images/avtotop.jpg') }}">
+
+
+<header class="header bg-dark">
+   <nav class="navbar navbar-dark bg-dark navbar-expand-lg" id="myNavbar">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+         <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+         <ul class="navbar-nav ml-auto nav-fill">
+            <li class="nav-item px-4 dropdown">
+               <a class="nav-link dropdown-toggle" href="#" id="servicesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Автомастерская</a>
+               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="servicesDropdown">
+                  <div class="d-md-flex align-items-start justify-content-start">
+                     <div>
+                        <div class="dropdown-header text-danger">Ремонт</div>
+                        <a class="dropdown-item" href="#">Болезни автомобилей</a>
+                        <a class="dropdown-item" href="#">Ремонт автомобилей</a>
+                     </div>
+                     <div>
+                        <div class="dropdown-header text-success">Техническое обслуживание</div>
+                        <a class="dropdown-item" href="#">Шины и диски</a>
+                        <a class="dropdown-item" href="#">Моторное масло</a>
+                     </div>
+                  </div>
+               </div>
+            </li>
+            <li class="nav-item px-4 dropdown">
+               <a class="nav-link dropdown-toggle" href="#" id="servicesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Кузов</a>
+               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="servicesDropdown">
+                  <div class="d-md-flex align-items-start justify-content-start">
+                     <div>
+                        <a class="dropdown-item" href="#">Ремонт кузова</a>
+                        <a class="dropdown-item" href="#">Кузовные размеры</a>
+                     </div>
+                  </div>
+               </div>
+            </li>
+            <li class="nav-item px-4">
+               <a href="#" class="nav-link">Диагонали кузова</a>
+            </li>
+         </ul>
+      </div>
+   </nav>
+</header>
