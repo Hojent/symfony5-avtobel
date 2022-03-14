@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Category;
 use App\Repository\CategoryRepository;
 use Doctrine\DBAL\Types\TextType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -19,7 +20,12 @@ class CategoryType extends AbstractType
         $builder
             ->add('title')
             ->add('alias')
-            ->add('description',TextareaType::class)
+            ->add('description', CKEditorType::class, [
+                'config' => [
+                    'uiColor' => '#ffffff',
+                    //...
+                ],
+            ])
             ->add('parent', EntityType::class, [
                  // looks for choices from this entity
                  'class' => Category::class,
