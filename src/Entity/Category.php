@@ -68,10 +68,9 @@ class Category
     private $metakey;
 
     /**
-     * @ORM\Column(name="created_time", type="datetime", nullable=true)
-     * @Assert\DateTime
-     * date('Y-m-d')
-     * @var string A "Y-m-d H:i:s" formatted value
+     * @ORM\Column(name="created_time", type="datetime", nullable=false)
+     * date('Y-m-d H:i:s')
+     * @Assert\Type("\DateTime")
      */
     protected $created_time;
 

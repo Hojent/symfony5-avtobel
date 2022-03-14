@@ -43,6 +43,7 @@ class CategoryController extends AbstractController
             // but, the original `$task` variable has also been updated
             $category = $form->getData();
 
+            $category->setCreatedTime(new \DateTime());
             // ... perform some action, such as saving the task to the database
             // tell Doctrine you want to (eventually) save the Product (no queries yet)
             $entityManager->persist($category);
@@ -71,15 +72,24 @@ class CategoryController extends AbstractController
     /**
      * @Route("/{id}/edit", name="admin_category_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Category $category): Response
+    public function edit(ManagerRegistry $doctrine, Request $request, Category $category): Response
     {
+       if (!$category) {
+            throw $this->createNotFoundException(
+                'No category found.'
+            );
+        }
+        $entityManager = $doctrine->getManager();
         $form = $this->createForm(CategoryType::class, $category);
+
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+              $category = $form->getData();
 
-            return $this->redirectToRoute('admin_category_index', [], Response::HTTP_SEE_OTHER);
+            $entityManager->persist($category);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('admin_category_index');
         }
 
         return $this->renderForm('admin/category/edit.html.twig', [
@@ -88,7 +98,7 @@ class CategoryController extends AbstractController
         ]);
     }
 
-    /**
+     /**
      * @Route("/{id}", name="admin_category_delete", methods={"POST"})
      */
     public function delete(Request $request, Category $category): Response
