@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Post;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -57,7 +58,11 @@ class PostType extends AbstractType
                     'class' => 'js-datepicker'
                 ]
             ])
-            ->add('images')
+            ->add('images',FileType::class,[
+                'required' => false,
+                'mapped' => false,
+
+            ])
             ->add('ordering', NumberType::class)
             ->add('metakey', TextType::class)
             ->add('metadesc', TextareaType::class)

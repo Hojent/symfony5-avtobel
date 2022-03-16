@@ -4,7 +4,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title">Редактривать материал</h5>
+                    <h5 class="card-title">Редактировать материал</h5>
                 </div>
                 <div class="card-body">
                     {{ form_start(form) }}
@@ -34,14 +34,24 @@
                             ) }}
                         </label>
 
-                        <label class="col-lg-6" for="category">
+                        <label class="col-lg-4" for="category">
                             Категория
                             {{ form_widget(form.category,
                                 {'attr':
                                     {'class': 'form-control','id':'category'}
                                 }) }}
                         </label>
-                        <div class="form-control col-lg-3">
+
+                        <label class="col-lg-4" for="ordering">Порядок
+                            {{ form_widget(form.ordering,
+                                {'attr':
+                                    {'class': 'form-control',
+                                        'id':'ordering',
+                                    },
+                                    'type':'number'
+                                }) }}
+                        </label>
+                        <div class="form-control col-lg-4">
                             <div class="form-check">
                                 {{ form_widget(form.published,
                                     {'attr':
@@ -67,17 +77,19 @@
                                 </label>
                             </div>
                         </div>
+                        <div class="col-lg-4">
+                            <label  for="images">Изображение
+                                {{ form_widget(form.images,
+                                    {'attr':
+                                        {'class': 'form-control','id':'images'}
+                                    }) }}
+                            </label>
+                            <img src="{{ asset('assets/images/stories/illustration/' ~ post.images) }}" class="w-100" />
+                        </div>
 
-                        <label class="col-lg-3" for="ordering">Порядок
-                            {{ form_widget(form.ordering,
-                                {'attr':
-                                    {'class': 'form-control',
-                                        'id':'ordering',
-                                    },
-                                    'type':'number'
-                                }) }}
-                        </label>
-                        <label class="col-lg-12" for="introtext">Аннотация
+
+
+                        <label class="col-lg-8" for="introtext">Аннотация
                             {{ form_widget(form.introtext,
                                 {'attr':
                                     {'class': 'form-control','id':'introtext'}

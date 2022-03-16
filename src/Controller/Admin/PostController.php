@@ -4,12 +4,14 @@ namespace App\Controller\Admin;
 
 use App\Repository\PostRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Post;
 use App\Form\PostType;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 /**
  * @Route("/admin/posts")
@@ -29,7 +31,7 @@ class PostController extends AbstractController
     /**
      * @Route("/new", name="admin_post_new", methods={"GET","POST"})
      */
-    public function new(ManagerRegistry $doctrine, Request $request): Response
+    public function new(ManagerRegistry $doctrine, Request $request, SluggerInterface $slugger): Response
     {
         $post = new Post();
         $entityManager = $doctrine->getManager();
@@ -37,6 +39,26 @@ class PostController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $image = $form->get('images')->getData();
+            if ($image) {
+                $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeImage = $slugger->slug($originalFilename);
+                $newFilename = $safeImage . '-' . uniqid() . '.' . $image->guessExtension();
+                // Move the file to the directory
+                try {
+                    $image->move(
+                        $this->getParameter('app.images_dir'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    echo 'file upload error';
+                }
+
+                // updates the 'brochureFilename' property to store the PDF file name
+                // instead of its contents
+                $post->setImages($newFilename);
+            }
             $entityManager->persist($post);
             $entityManager->flush();
 
@@ -62,13 +84,33 @@ class PostController extends AbstractController
     /**
      * @Route("/{id}/edit", name="admin_post_edit", methods={"GET","POST"})
      */
-    public function edit(ManagerRegistry $doctrine, Request $request, Post $post): Response
+    public function edit(ManagerRegistry $doctrine, Request $request, Post $post, SluggerInterface $slugger): Response
     {
         $entityManager = $doctrine->getManager();
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $image = $form->get('images')->getData();
+            if ($image) {
+                $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeImage = $slugger->slug($originalFilename);
+                $newFilename = $safeImage . '-' . uniqid() . '.' . $image->guessExtension();
+                // Move the file to the directory
+                try {
+                    $image->move(
+                        $this->getParameter('app.images_dir'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    echo 'file upload error';
+                }
+
+                // updates the 'brochureFilename' property to store the PDF file name
+                // instead of its contents
+                $post->setImages($newFilename);
+            }
             $entityManager->persist($post);
             $entityManager->flush();
 
