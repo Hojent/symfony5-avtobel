@@ -5,8 +5,6 @@ namespace App\Entity;
 use App\Repository\CategoryRepository;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\OneToMany;
-use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\JoinColumn;
 
 /**
@@ -35,16 +33,22 @@ class Category
     // ...
     /**
      * One Category has Many Categories.
-     * @OneToMany(targetEntity="Category", mappedBy="parent")
+     * @ORM\OneToMany(targetEntity="Category", mappedBy="parent")
      */
     private $children;
 
     /**
      * Many Categories have One Category.
-     * @ManyToOne(targetEntity="Category", inversedBy="children")
-     * @JoinColumn(name="parent_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="children")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      */
     private $parent;
+
+    /**
+     * One Category has Many Posts.
+     * @ORM\OneToMany(targetEntity="Post", mappedBy="category")
+     */
+    private $posts;
 
     /**
      * @ORM\Column(type="text", nullable=true)

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\PostRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=PostRepository::class)
@@ -39,29 +40,29 @@ class Post
     private $full_text;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="boolean", nullable=true)
      */
-    private $state;
+    private $published;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * Many Posts have One Category.
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="posts")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
-    private $catid;
+    private $category;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(name="created", type="date", nullable=true,
+     *      )
+     *
      */
+    //@Assert\Type("\Date")
     private $created;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $images;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $urls;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -83,10 +84,6 @@ class Post
      */
     private $featured;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="posts")
-     */
-    private $category;
 
     public function getCategory(): ?Category
     {
@@ -154,31 +151,19 @@ class Post
         return $this;
     }
 
-    public function getState(): ?int
+    public function getPublished(): ?bool
     {
-        return $this->state;
+        return $this->published;
     }
 
-    public function setState(?int $state): self
+    public function setPublished(?bool $published): self
     {
-        $this->state = $state;
+        $this->published = $published;
 
         return $this;
     }
 
-    public function getCatid(): ?int
-    {
-        return $this->catid;
-    }
-
-    public function setCatid(?int $catid): self
-    {
-        $this->catid = $catid;
-
-        return $this;
-    }
-
-    public function getCreated(): ?\DateTimeInterface
+    public function getCreated(): ?\DateTime
     {
         return $this->created;
     }

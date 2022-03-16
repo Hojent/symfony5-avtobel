@@ -2,14 +2,14 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Category;
-use App\Form\CategoryType;
-use App\Repository\CategoryRepository;
 use App\Repository\PostRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Post;
+use App\Form\PostType;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @Route("/admin/posts")
@@ -22,21 +22,21 @@ class PostController extends AbstractController
     public function index(PostRepository $postRepository): Response
     {
         return $this->render('admin/posts/index.html.twig', [
-            'categories' => $postRepository->findAll(),
+            'posts' => $postRepository->findAll(),
         ]);
     }
 
     /**
      * @Route("/new", name="admin_post_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(ManagerRegistry $doctrine, Request $request): Response
     {
         $post = new Post();
+        $entityManager = $doctrine->getManager();
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($post);
             $entityManager->flush();
 
@@ -62,18 +62,20 @@ class PostController extends AbstractController
     /**
      * @Route("/{id}/edit", name="admin_post_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Post $post): Response
+    public function edit(ManagerRegistry $doctrine, Request $request, Post $post): Response
     {
+        $entityManager = $doctrine->getManager();
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $entityManager->persist($post);
+            $entityManager->flush();
 
             return $this->redirectToRoute('admin_post_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('admin/post/edit.html.twig', [
+        return $this->renderForm('admin/posts/edit.html.twig', [
             'post' => $post,
             'form' => $form,
         ]);
