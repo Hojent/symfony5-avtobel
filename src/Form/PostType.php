@@ -44,11 +44,8 @@ class PostType extends AbstractType
                 ],
             ])
             ->add('fullText', CKEditorType::class, [
-                'config' => [
-                    'uiColor' => '#f0ffff',
-                    //...
-                ],
-            ])
+                'config_name' => 'full_config',
+                ])
             ->add('published')
             ->add('featured')
             ->add('created', DateType::class,[

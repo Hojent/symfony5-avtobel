@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Автомобили в Беларуси. Законодательство, кузовные размеры, ремонт.{% endblock %}
+
+{% block body %}
+    <!-- Content section-->
+    <section class="container">
+
+        <h5 class="text text-success">{{ post.category }}</h5>
+        <h1>{{ post.title }}</h1>
+
+        {% if(post.images) %}
+       <div class="img-fluid float-left pr-5">
+           <img src="{{ asset('assets/images/stories/illustration/' ~ post.images) }}" />
+       </div>
+        {% endif %}
+        <div>
+            {{ post.fullText|raw }}
+        </div>
+
+
+    </section>
+{% endblock %}

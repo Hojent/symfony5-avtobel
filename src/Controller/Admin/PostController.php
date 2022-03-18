@@ -136,4 +136,30 @@ class PostController extends AbstractController
 
         return $this->redirectToRoute('admin_post_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    /**
+     * @Route("/{id}/ck_upload_img", name="ck_upload_img", methods={"POST"})
+     */
+    public function ckUploadImg(Request $request, SluggerInterface $slugger)
+    {
+        $ckImage = $request->files->get('upload');
+        $originalFilename = pathinfo($ckImage->getClientOriginalName(), PATHINFO_FILENAME);
+        // this is needed to safely include the file name as part of the URL
+        $safeImage = $slugger->slug($originalFilename);
+        $newFilename = $safeImage . '-' . uniqid() . '.' . $ckImage->guessExtension();
+        // Move the file to the directory
+        try {
+            $ckImage->move(
+                $this->getParameter('app.images_dir'),
+                $newFilename);
+                $CKEditorFuncNum = $request->get('CKEditorFuncNum');
+            $url = 'public/assets/images/stories/illustration/'.$newFilename;
+            $msg = 'Image uploaded successfully';
+            $response = "<script>window.parent.CKEDITOR.tools.callFunction($CKEditorFuncNum,'$url','$msg')</script>";
+            echo $response;
+        } catch (FileException $e) {
+            return 'file upload error';
+        }
+    }
+
 }

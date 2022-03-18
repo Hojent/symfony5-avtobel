@@ -1,0 +1,14 @@
+fos_ck_editor:
+        default_config: short_config
+        configs:
+            short_config:
+                toolbar: [ ["Source", "-", "Save","Paste",'-',
+                 "Undo", "Redo","-","Bold","Italic","-",
+                  'JustifyLeft','JustifyCenter','JustifyRight',"-",
+                   'NumberedList','BulletedList',], "/", ]
+            full_config:
+                filebrowserUploadUrl: 'ck_upload_img'
+                filebrowserUploadMethod: "form"
+                uiColor: "#f0ffff"
+
+                # ...
