@@ -145,15 +145,14 @@ class PostController extends AbstractController
         $ckImage = $request->files->get('upload');
         $originalFilename = pathinfo($ckImage->getClientOriginalName(), PATHINFO_FILENAME);
         // this is needed to safely include the file name as part of the URL
+        $dir = $this->getParameter('app.images_dir');
         $safeImage = $slugger->slug($originalFilename);
         $newFilename = $safeImage . '-' . uniqid() . '.' . $ckImage->guessExtension();
         // Move the file to the directory
         try {
-            $ckImage->move(
-                $this->getParameter('app.images_dir'),
-                $newFilename);
+            $ckImage->move($dir,$newFilename);
                 $CKEditorFuncNum = $request->get('CKEditorFuncNum');
-            $url = 'public/assets/images/stories/illustration/'.$newFilename;
+            $url = '/assets/images/stories/illustration/'.$newFilename;
             $msg = 'Image uploaded successfully';
             $response = "<script>window.parent.CKEDITOR.tools.callFunction($CKEditorFuncNum,'$url','$msg')</script>";
             echo $response;
