@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Post;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -60,6 +61,12 @@ class PostType extends AbstractType
                 'mapped' => false,
 
             ])
+          /* ->add('images',  TextType::class, [
+               'required' => false,
+               'attr' => [
+                   'id' => 'path',
+               ]
+           ])*/
             ->add('ordering', NumberType::class)
             ->add('metakey', TextType::class)
             ->add('metadesc', TextareaType::class)

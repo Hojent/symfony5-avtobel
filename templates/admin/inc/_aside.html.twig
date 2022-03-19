@@ -9,7 +9,7 @@
                                          href="{{ path('dashboard') }}" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span></a></li>
             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ path('admin_category_index') }}" aria-expanded="false"><i class="mdi mdi-chart-bar"></i><span class="hide-menu">Категории</span></a></li>
             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ path('admin_post_index') }}" aria-expanded="false"><i class="mdi mdi-note"></i><span class="hide-menu">Материалы</span></a>
-            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span class="hide-menu">Галерея</span></a></li>
+            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false" data-toggle="modal" data-target="#manager"><i class="mdi mdi-border-inside"></i><span class="hide-menu">Галерея</span></a></li>
             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="grid.html" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Full Width</span></a></li>
             <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-receipt"></i><span class="hide-menu">Forms </span></a>
                <ul aria-expanded="false" class="collapse  first-level">
@@ -54,4 +54,27 @@
    </div>
    <!-- End Sidebar scroll-->
 </aside>
+<!-- Modal -->
+<div class="modal fade" id="manager" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+   <div class="modal-dialog mw-100 w-75 modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body modal-xl">
+            <iframe src="{{ path('file_manager',{'conf':'default'}) }}"
+            width="100%"
+            marginwidth="20"
+            height="500"
+          ></iframe>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+         </div>
+      </div>
+   </div>
+</div>
 <!-- ============================================================== -->

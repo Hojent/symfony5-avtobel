@@ -6,3 +6,7 @@ artgris_file_manager:
         images:
           dir: "%kernel.project_dir%/public/assets/images"
           type: 'image'
+        button:
+          dir: "%kernel.project_dir%/public/assets/images"
+        default:
+          dir: "%kernel.project_dir%/public/assets/images"
