@@ -1,0 +1,8 @@
+artgris_file_manager:
+    conf:
+        files:
+          dir: "%kernel.project_dir%/public/files"
+          type: 'file'
+        images:
+          dir: "%kernel.project_dir%/public/assets/images"
+          type: 'image'

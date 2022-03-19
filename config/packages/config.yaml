@@ -9,6 +9,13 @@ fos_ck_editor:
             full_config:
                 filebrowserUploadUrl: 'ck_upload_img'
                 filebrowserUploadMethod: "form"
+                filebrowserBrowseRoute: file_manager
+                filebrowserBrowseRouteParameters:
+                    conf: files
+                    module: ckeditor
+                filebrowserImageBrowseRoute: file_manager
+                filebrowserImageBrowseRouteParameters:
+                    conf: images
+                    module: ckeditor
                 uiColor: "#f0ffff"
-
-                # ...
+               # ...
