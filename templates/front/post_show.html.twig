@@ -11,7 +11,7 @@
 
         {% if(post.images) %}
        <div class="img-fluid float-left pr-5">
-           <img src="{{ asset('assets/images/stories/illustration/' ~ post.images) }}" />
+           <img src="{{ asset(post.images) }}" />
        </div>
         {% endif %}
         <div>

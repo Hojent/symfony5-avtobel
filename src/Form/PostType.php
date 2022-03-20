@@ -56,17 +56,18 @@ class PostType extends AbstractType
                     'class' => 'js-datepicker'
                 ]
             ])
-            ->add('images',FileType::class,[
+        /*    ->add('images',FileType::class,[
                 'required' => false,
                 'mapped' => false,
 
-            ])
-          /* ->add('images',  TextType::class, [
+            ])*/
+           ->add('images',  TextType::class, [
                'required' => false,
                'attr' => [
                    'id' => 'path',
-               ]
-           ])*/
+               ],
+
+           ])
             ->add('ordering', NumberType::class)
             ->add('metakey', TextType::class)
             ->add('metadesc', TextareaType::class)
@@ -81,6 +82,7 @@ class PostType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Post::class,
+
         ]);
     }
 }
