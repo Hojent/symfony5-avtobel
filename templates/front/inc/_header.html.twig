@@ -11,8 +11,15 @@
    </div>
 
 </nav>
-<img class="w-100" src="{{ asset('assets/front/images/avtotop.jpg') }}">
+{% set currentPath = path(app.request.attributes.get('_route'),
+    app.request.attributes.get('_route_params')) %}
 
+{% if(currentPath == '/') %}
+<img class="w-100" src="{{ asset('assets/front/images/avtotop.jpg') }}">
+    {% else %}
+<div style="height: 60px"></div>
+
+{% endif %}
 
 <header class="header bg-dark">
    <nav class="navbar navbar-dark bg-dark navbar-expand-lg" id="myNavbar">

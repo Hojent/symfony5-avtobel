@@ -6,7 +6,7 @@
     <!-- Content section-->
     <section class="container">
 
-        <h5 class="text text-success">{{ post.category }}</h5>
+        <h5 class="text text-success">{{ post.category.parent }} / <a href="{{ path('post_list', {'category':post.category.id}) }}">{{ post.category }}</a></h5>
         <h1>{{ post.title }}</h1>
 
         {% if(post.images) %}

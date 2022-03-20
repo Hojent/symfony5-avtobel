@@ -75,6 +75,9 @@
                             <p class="lead"><a href="{{ path('post_show',
                                     { 'alias': fav.alias }) }}">{{ fav.title }}</a></p>
                             <p class="mb-0">{{ fav.introtext|raw }}</p>
+                            {% if(fav.images) %}
+                            <img src="{{  fav.images }}" class="mw-100" />
+                            {% endif %}
                         </div>
                         {% endfor %}
                    </div>

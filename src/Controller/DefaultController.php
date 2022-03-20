@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Repository\PostRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,6 +29,18 @@ class DefaultController extends AbstractController
     {
         return $this->render('front/post_show.html.twig', [
             'post' => $post,
+        ]);
+    }
+
+    /**
+     * @Route("/posts/{category}", name="post_list", methods={"GET"})
+     */
+    public function postList(PostRepository $post, Category $category): Response
+    {
+        $posts = $post->findByCategory($category);
+        return $this->render('front/post_list.html.twig', [
+            'posts' => $posts,
+            'category' => $category
         ]);
     }
 }
