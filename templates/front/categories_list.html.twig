@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Автомобили в Беларуси. ремонт автомобиля своими руками, кузовные размеры, ремонт кузова, ремонт.{% endblock %}
+
+{% block body %}
+    <section class="container">
+            <div class="row justify-content-center">
+                <h5 class="text text-success">{{ category.title }}</h5>
+                   <div class="row">
+                       {% for child in children %}
+                       <div class="col-10">
+                           <p class="lead">
+                          {% if(child.children.count > 0) %}
+                                <a href="{{ path('categories_list', {'category':child.id}) }}">{{ child.title }}</a>
+                               {% else %}
+                               <a href="{{ path('post_list',
+                                   {'category': child.id }) }}">
+                                   {{child.title }}</a></p>
+                               {% endif %}
+                       </div>
+                       {% endfor %}
+                   </div>
+            </div>
+
+
+    </section>
+{% endblock %}

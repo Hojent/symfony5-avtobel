@@ -131,6 +131,11 @@ class Category
         return $this;
     }
 
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
     public function getPublished(): ?bool
     {
         return $this->published;

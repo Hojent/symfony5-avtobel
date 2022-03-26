@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Repository\CategoryRepository;
 use App\Repository\PostRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -41,6 +42,18 @@ class DefaultController extends AbstractController
         return $this->render('front/post_list.html.twig', [
             'posts' => $posts,
             'category' => $category
+        ]);
+    }
+
+    /**
+     * @Route("/categories/{category}", name="categories_list", methods={"GET"})
+     */
+    public function categoriesList(CategoryRepository $repository, Category $category): Response
+    {
+        $children = $repository->findChildrenByParent($category);
+        return $this->render('front/categories_list.html.twig', [
+            'category' => $category,
+            'children' => $children
         ]);
     }
 }
