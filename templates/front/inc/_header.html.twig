@@ -34,13 +34,13 @@
                   <div class="d-md-flex align-items-start justify-content-start">
                      <div>
                         <div class="dropdown-header text-danger">Ремонт</div>
-                        <a class="dropdown-item" href="#">Болезни автомобилей</a>
-                        <a class="dropdown-item" href="#">Ремонт автомобилей</a>
+                        <a class="dropdown-item" href="{{ path('categories_list', {'category':22}) }}">Болезни автомобилей</a></a>
+                        <a class="dropdown-item" href="{{ path('categories_list', {'category':44}) }}">Ремонт автомобилей</a>
                      </div>
                      <div>
                         <div class="dropdown-header text-success">Техническое обслуживание</div>
-                        <a class="dropdown-item" href="#">Шины и диски</a>
-                        <a class="dropdown-item" href="#">Моторное масло</a>
+                        <a class="dropdown-item" href="{{ path('post_list', {'category':19}) }}">Шины и диски</a>
+                        <a class="dropdown-item" href="{{ path('post_list', {'category':20}) }}">Моторное масло</a>
                      </div>
                   </div>
                </div>
@@ -50,7 +50,7 @@
                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="servicesDropdown">
                   <div class="d-md-flex align-items-start justify-content-start">
                      <div>
-                        <a class="dropdown-item" href="#">Ремонт кузова</a>
+                        <a class="dropdown-item" href="{{ path('categories_list', {'category':16}) }}">Ремонт кузова</a>
                         <a class="dropdown-item" href="#">Кузовные размеры</a>
                      </div>
                   </div>
