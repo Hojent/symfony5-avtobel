@@ -6,10 +6,14 @@ use App\Repository\CategoryRepository;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=CategoryRepository::class)
  * @ORM\Table(name="categories")
+ * @UniqueEntity(fields = {"alias"},
+ *     message = "The Alias already exists")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Category
 {
@@ -22,11 +26,14 @@ class Category
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $title;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true,
+     *             unique=true)
+     *
      */
     private $alias;
 
