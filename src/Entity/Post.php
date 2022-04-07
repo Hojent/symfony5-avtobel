@@ -206,6 +206,18 @@ class Post
         return $this;
     }
 
+    public function getMetatitle(): ?string
+    {
+        return $this->metatitle;
+    }
+
+    public function setMetatitle(?string $metatitle): self
+    {
+        $this->metatitle = $metatitle;
+
+        return $this;
+    }
+
     public function getMetakey(): ?string
     {
         return $this->metakey;

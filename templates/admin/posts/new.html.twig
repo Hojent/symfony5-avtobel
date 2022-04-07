@@ -108,7 +108,13 @@
                                     {'class': 'form-control','id':'introtext'}
                                 }) }}
                         </label>
-
+                        <label class="col-lg-12" for="metakey">Заголовок для браузера
+                            {{ form_widget(form.metatitle,
+                                {'attr':
+                                    {'class': 'form-control','id':'metatitle'}
+                                }) }}
+                            <small id="emailHelp" class="form-text text-muted">Формируется из заголовка автоматически. Может быть изменен.</small>
+                        </label>
                         <label class="col-lg-12" for="metakey">Ключевые слова
                             {{ form_widget(form.metakey,
                                 {'attr':

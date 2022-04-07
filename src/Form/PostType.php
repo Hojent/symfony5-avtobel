@@ -69,6 +69,7 @@ class PostType extends AbstractType
 
            ])
             ->add('ordering', NumberType::class)
+            ->add('metatitle')
             ->add('metakey', TextType::class)
             ->add('metadesc', TextareaType::class)
         ;
