@@ -98,7 +98,11 @@
                                 </div>
                             </label>
                             <div>
+                                {% if (post.images) is not null %}
                                 <img src="{{ asset( post.images) }}" class="img-responsive w-100" id="image" alt="">
+                                {% else %}
+                                <p>нет изображения</p>
+                                {% endif %}
                             </div>
                         </div>
 

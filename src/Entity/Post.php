@@ -70,14 +70,19 @@ class Post
     private $ordering;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $metakey;
+    private $metatitle;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $metadesc;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $metakey;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
@@ -187,17 +192,7 @@ class Post
         return $this;
     }
 
-    public function getUrls(): ?string
-    {
-        return $this->urls;
-    }
 
-    public function setUrls(?string $urls): self
-    {
-        $this->urls = $urls;
-
-        return $this;
-    }
 
     public function getOrdering(): ?int
     {

@@ -41,28 +41,12 @@ class PostController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $image = $form->get('images')->getData();
             if ($image) {
-                $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
-                // this is needed to safely include the file name as part of the URL
-                $safeImage = $slugger->slug($originalFilename);
-                $newFilename = $safeImage . '-' . uniqid() . '.' . $image->guessExtension();
-                // Move the file to the directory
-                try {
-                    $image->move(
-                        $this->getParameter('app.images_dir'),
-                        $newFilename
-                    );
-                } catch (FileException $e) {
-                    echo 'file upload error';
-                }
-
-                // updates the 'brochureFilename' property to store the PDF file name
-                // instead of its contents
-                $post->setImages($newFilename);
+                $post->setImages($image);
             }
             $entityManager->persist($post);
             $entityManager->flush();
 
-            return $this->redirectToRoute('admin_post_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('admin_post_edit', ['id' => $post->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('admin/posts/new.html.twig', [
@@ -93,22 +77,6 @@ class PostController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $image = $form->get('images')->getData();
             if ($image) {
-               /* $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
-                // this is needed to safely include the file name as part of the URL
-                $safeImage = $slugger->slug($originalFilename);
-                $newFilename = $safeImage . '-' . uniqid() . '.' . $image->guessExtension();
-                // Move the file to the directory
-                try {
-                    $image->move(
-                        $this->getParameter('app.images_dir'),
-                        $newFilename
-                    );
-                } catch (FileException $e) {
-                    echo 'file upload error';
-                }*/
-
-                // updates the 'brochureFilename' property to store the PDF file name
-                // instead of its contents
                 $post->setImages($image);
             }
             $entityManager->persist($post);
