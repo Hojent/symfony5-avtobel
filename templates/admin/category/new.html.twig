@@ -17,6 +17,9 @@
                                {'attr':
                                    {'class': 'form-control','id':'title'}
                                }) }}
+                            <div class="text-danger">
+                            {{ form_errors(form.title) }}
+                            </div>
                         </label>
 
                        <label class="col-lg-6" for="title">Alias
@@ -24,6 +27,9 @@
                                {'attr':
                                    {'class': 'form-control','id':'alias'}
                                }) }}
+                            <div class="text-danger">
+                                {{ form_errors(form.alias) }}
+                            </div>
                        </label>
                        <label class="col-lg-12" for="description">Описание
                            {{ form_widget(form.description,
@@ -52,6 +58,13 @@
                                 </label>
                        </div>
                        </div>
+                       <label class="col-lg-12" for="metakey">Заголовок для браузера
+                           {{ form_widget(form.metatitle,
+                               {'attr':
+                                   {'class': 'form-control','id':'metatitle'}
+                               }) }}
+                           <small id="emailHelp" class="form-text text-muted">Формируется из заголовка автоматически. Может быть изменен.</small>
+                       </label>
                        <label class="col-lg-12" for="metakey">Ключевые слова
                            {{ form_widget(form.metakey,
                                {'attr':

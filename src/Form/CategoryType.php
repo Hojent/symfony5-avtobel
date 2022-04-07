@@ -21,7 +21,9 @@ class CategoryType extends AbstractType
             ->add('title', TextType::class, [
                 'required' => false
             ])
-            ->add('alias')
+            ->add('alias', TextType::class, [
+                'required' => false,
+            ])
             ->add('description', CKEditorType::class, [
                 'config' => [
                     'uiColor' => '#ffffff',
@@ -42,6 +44,7 @@ class CategoryType extends AbstractType
 
              ])
             ->add('published')
+            ->add('metatitle')
             ->add('metadesc')
             ->add('metakey')
             //->add('createdTime')

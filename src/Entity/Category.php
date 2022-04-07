@@ -31,9 +31,8 @@ class Category
     private $title;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true,
-     *             unique=true)
-     *
+     * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\NotBlank
      */
     private $alias;
 
@@ -71,6 +70,11 @@ class Category
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
+    private $metatitle;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
     private $metadesc;
 
     /**
@@ -102,12 +106,12 @@ class Category
         return $this;
     }
 
-    public function getAlias(): ?string
+    public function getAlias(): string
     {
         return $this->alias;
     }
 
-    public function setAlias(?string $alias): self
+    public function setAlias(string $alias): self
     {
         $this->alias = $alias;
 
@@ -151,6 +155,18 @@ class Category
     public function setPublished(bool $published): self
     {
         $this->published = $published;
+
+        return $this;
+    }
+
+    public function getMetatitle(): ?string
+    {
+        return $this->metatitle;
+    }
+
+    public function setMetatitle(?string $metatitle): self
+    {
+        $this->metatitle = $metatitle;
 
         return $this;
     }

@@ -38,6 +38,8 @@ class CategoryController extends AbstractController
         $form = $this->createForm(CategoryType::class, $category);
 
         $form->handleRequest($request);
+        $errors = $form->getErrors();
+
         if ($form->isSubmitted() && $form->isValid()) {
             // $form->getData() holds the submitted values
             // but, the original `$task` variable has also been updated
@@ -56,6 +58,7 @@ class CategoryController extends AbstractController
 
         return $this->renderForm('admin/category/new.html.twig', [
             'form' => $form,
+            'errors' => $errors
         ]);
     }
 
