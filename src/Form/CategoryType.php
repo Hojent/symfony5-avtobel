@@ -29,6 +29,7 @@ class CategoryType extends AbstractType
                     'uiColor' => '#ffffff',
                     //...
                 ],
+                'required' => false,
             ])
             ->add('parent', EntityType::class, [
                  // looks for choices from this entity
@@ -44,9 +45,15 @@ class CategoryType extends AbstractType
 
              ])
             ->add('published')
-            ->add('metatitle')
-            ->add('metadesc')
-            ->add('metakey')
+            ->add('metatitle', TextType::class, [
+                     'required' => false,
+                  ])
+            ->add('metadesc', TextareaType::class, [
+                'required' => false,
+                  ])
+            ->add('metakey', TextType::class, [
+              'required' => false,
+                 ])
             //->add('createdTime')
         ;
         $builder->add('save',  SubmitType::class, [

@@ -5,10 +5,14 @@ namespace App\Entity;
 use App\Repository\PostRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=PostRepository::class)
  * @ORM\Table(name="posts")
+ * @UniqueEntity(fields = {"alias"},
+ *     message = "The Alias already exists")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Post
 {
@@ -21,11 +25,13 @@ class Post
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $title;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\NotBlank
      */
     private $alias;
 

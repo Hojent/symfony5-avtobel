@@ -39,6 +39,12 @@ class PostController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $datetime = $form->get('created')->getData();
+            if(empty($datetime)) {
+                $post->setCreated(new \DateTime());
+            } else {
+                $post->setCreated($datetime);
+            }
             $image = $form->get('images')->getData();
             if ($image) {
                 $post->setImages($image);
@@ -96,7 +102,7 @@ class PostController extends AbstractController
      */
     public function delete(Request $request, Post $post): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$post->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete-post', $request->request->get('token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($post);
             $entityManager->flush();
@@ -105,6 +111,7 @@ class PostController extends AbstractController
         return $this->redirectToRoute('admin_post_index', [], Response::HTTP_SEE_OTHER);
     }
 
+    //Upload from the local computer. FileManager is not used
     /**
      * @Route("/{id}/ck_upload_img", name="ck_upload_img", methods={"POST"})
      */

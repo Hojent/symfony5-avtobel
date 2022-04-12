@@ -23,8 +23,12 @@ class PostType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title')
-            ->add('alias')
+            ->add('title', TextType::class, [
+                'required' => false
+            ])
+            ->add('alias', TextType::class, [
+                'required' => false,
+            ])
             ->add('category',EntityType::class, [
                 // looks for choices from this entity
                 'class' => Category::class,
@@ -43,13 +47,16 @@ class PostType extends AbstractType
                     'uiColor' => '#fff0ff',
                     //...
                 ],
+                'required' => false,
             ])
             ->add('fullText', CKEditorType::class, [
                 'config_name' => 'full_config',
+                'required' => false,
                 ])
             ->add('published')
             ->add('featured')
             ->add('created', DateType::class,[
+                'required' => false,
                 'html5' => false,
                 'widget' => 'single_text',
                 'attr' => [
@@ -68,10 +75,18 @@ class PostType extends AbstractType
                ],
 
            ])
-            ->add('ordering', NumberType::class)
-            ->add('metatitle')
-            ->add('metakey', TextType::class)
-            ->add('metadesc', TextareaType::class)
+            ->add('ordering', NumberType::class , [
+                'required' => false,
+            ])
+            ->add('metatitle' , TextType::class, [
+                'required' => false,
+            ])
+            ->add('metakey', TextType::class, [
+                'required' => false,
+            ])
+            ->add('metadesc', TextareaType::class, [
+                'required' => false,
+            ])
         ;
 
         $builder->add('save',  SubmitType::class, [
