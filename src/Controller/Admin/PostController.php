@@ -40,10 +40,23 @@ class PostController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $datetime = $form->get('created')->getData();
+            $metatitle = $form->get('metatitle')->getData();
+            $alias = $form->get('alias')->getData();
+            if(empty($alias)) {
+                $slug = $slugger->slug($form->get('title')->getData());
+                $post->setAlias($slug);
+            } else {
+                $post->setAlias($alias);
+            }
             if(empty($datetime)) {
                 $post->setCreated(new \DateTime());
             } else {
                 $post->setCreated($datetime);
+            }
+            if(empty($metatitle)) {
+                $post->setMetatitle($form->get('title')->getData());
+            } else {
+                $post->setMetatitle($metatitle);
             }
             $image = $form->get('images')->getData();
             if ($image) {
