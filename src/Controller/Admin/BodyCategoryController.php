@@ -3,13 +3,14 @@
 namespace App\Controller\Admin;
 
 use App\Entity\BodyCategory;
-use App\Form\CategoryType;
+use App\Form\BodyCategoryType;
 use App\Repository\BodyCategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 /**
  * @Route("/admin/body-category")
@@ -27,15 +28,15 @@ class BodyCategoryController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="admin_category_new", methods={"GET","POST"})
+     * @Route("/new", name="admin_body_category_new", methods={"GET","POST"})
      */
-    public function new(ManagerRegistry $doctrine, Request $request): Response
+    public function new(ManagerRegistry $doctrine, Request $request, SluggerInterface $slugger): Response
     {
         $entityManager = $doctrine->getManager();
         // just set up a fresh $task object (remove the example data)
-        $category = new Category();
+        $category = new BodyCategory();
 
-        $form = $this->createForm(CategoryType::class, $category);
+        $form = $this->createForm(BodyCategoryType::class, $category);
 
         $form->handleRequest($request);
         $errors = $form->getErrors();
@@ -44,38 +45,53 @@ class BodyCategoryController extends AbstractController
             // $form->getData() holds the submitted values
             // but, the original `$task` variable has also been updated
             $category = $form->getData();
-
             $category->setCreatedTime(new \DateTime());
-            // ... perform some action, such as saving the task to the database
-            // tell Doctrine you want to (eventually) save the Product (no queries yet)
+            $metatitle = $form->get('metatitle')->getData();
+            $slug = $form->get('slug')->getData();
+            if(empty($slug)) {
+                $slug = $slugger->slug($form->get('title')->getData());
+                $category->setSlug($slug);
+            } else {
+                $category->setSlug($slug);
+            }
+
+            if(empty($metatitle)) {
+                $category->setMetatitle($form->get('title')->getData());
+            } else {
+                $category->setMetatitle($metatitle);
+            }
+            $image = $form->get('images')->getData();
+            if ($image) {
+                $category->setImages($image);
+            }
             $entityManager->persist($category);
 
             // actually executes the queries (i.e. the INSERT query)
             $entityManager->flush();
 
-            return $this->redirectToRoute('admin_category_index');
+            return $this->redirectToRoute('admin_body_category_index');
         }
 
-        return $this->renderForm('admin/category/new.html.twig', [
+        return $this->renderForm('admin/body-category/new.html.twig', [
             'form' => $form,
             'errors' => $errors
         ]);
     }
 
     /**
-     * @Route("/{id}", name="admin_category_show", methods={"GET"})
+     * @Route("/{id}", name="admin_body_category_show", methods={"GET"})
      */
-    public function show(Category $category): Response
+    public function show(BodyCategory $category): Response
     {
-        return $this->render('admin/category/show.html.twig', [
+        return $this->render('admin/body-category/show.html.twig', [
             'category' => $category,
         ]);
     }
 
     /**
-     * @Route("/{id}/edit", name="admin_category_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="admin_body_category_edit", methods={"GET","POST"})
      */
-    public function edit(ManagerRegistry $doctrine, Request $request, Category $category): Response
+    public function edit(ManagerRegistry $doctrine, Request $request, BodyCategory $category): Response
     {
        if (!$category) {
             throw $this->createNotFoundException(
@@ -83,7 +99,7 @@ class BodyCategoryController extends AbstractController
             );
         }
         $entityManager = $doctrine->getManager();
-        $form = $this->createForm(CategoryType::class, $category);
+        $form = $this->createForm(BodyCategoryType::class, $category);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -92,28 +108,28 @@ class BodyCategoryController extends AbstractController
             $entityManager->persist($category);
             $entityManager->flush();
 
-            return $this->redirectToRoute('admin_category_index');
+            return $this->redirectToRoute('admin_body_category_index');
         }
 
-        return $this->renderForm('admin/category/edit.html.twig', [
+        return $this->renderForm('admin/body-category/edit.html.twig', [
             'category' => $category,
             'form' => $form,
         ]);
     }
 
      /**
-     * @Route("/{id}", name="admin_category_delete", methods={"POST"})
+     * @Route("/{id}", name="admin_body_category_delete", methods={"POST"})
      */
-    public function delete(Request $request, Category $category): Response
+    public function delete(Request $request, BodyCategory $category): Response
     {
 
-        if ($this->isCsrfTokenValid('delete-category', $request->request->get('token'))) {
+        if ($this->isCsrfTokenValid('delete-body-category', $request->request->get('token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($category);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('admin_category_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('admin_body_category_index', [], Response::HTTP_SEE_OTHER);
     }
 
 }

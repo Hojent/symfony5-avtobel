@@ -53,7 +53,7 @@ class BodyCategory
 
     /**
      * One Category has Many Bodies.
-     * @ORM\OneToMany(targetEntity="Body", mappedBy="category")
+     * @ORM\OneToMany(targetEntity="Body", mappedBy="bodycategory")
      */
     private $bodies;
 
@@ -62,6 +62,10 @@ class BodyCategory
      */
     private $description;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $image;
 
     /**
      * @ORM\Column(type="boolean")
@@ -131,12 +135,23 @@ class BodyCategory
         return $this;
     }
 
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
+        return $this;
+    }
+
     public function getParent()
     {
         return $this->parent;
     }
 
-    public function setParent(Category $parent = null): self
+    public function setParent(BodyCategory $parent = null): self
     {
         $this->parent = $parent;
 

@@ -27,7 +27,7 @@ class BodyRepository extends ServiceEntityRepository
     public function findByCategory($value)
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.bodycategory = :val')
+            ->andWhere('p.bodycat_id = :val')
             ->andWhere('p.published = :active')
             ->setParameter('val', $value)
             ->setParameter('active', 1)

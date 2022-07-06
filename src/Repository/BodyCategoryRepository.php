@@ -16,13 +16,13 @@ class BodyCategoryRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Category::class);
+        parent::__construct($registry, BodyCategory::class);
     }
 
     public function findActive()
     {
-        return $this->createQueryBuilder('c')
-            ->where('c.published = 1')
+        return $this->createQueryBuilder('bc')
+            ->where('bc.published = 1')
             ->getQuery()
             ->getArrayResult()
             ;
@@ -34,11 +34,11 @@ class BodyCategoryRepository extends ServiceEntityRepository
 
     public function findChildrenByParent($value)
     {
-        return $this->createQueryBuilder('c')
-            ->where('c.published = 1')
-            ->andWhere('c.parent = :val')
+        return $this->createQueryBuilder('bc')
+            ->where('bc.published = 1')
+            ->andWhere('bc.parent = :val')
             ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
+            ->orderBy('bc.id', 'ASC')
             ->getQuery()
             ->getResult()
         ;
