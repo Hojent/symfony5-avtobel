@@ -31,20 +31,6 @@ class BodyCategoryType extends AbstractType
                 ],
                 'required' => false,
             ])
-            ->add('parent', EntityType::class, [
-                 // looks for choices from this entity
-                 'class' => BodyCategory::class,
-                'required' => false,
-                'placeholder' => 'Нет родительской категории',
-                'query_builder' => function (BodyCategoryRepository $er) {
-                    return $er->createQueryBuilder('bc')
-                        ->where('bc.published = 1')
-                        ->where('bc.parent IS NULL')
-                        ;
-                },
-                 'choice_label' => 'title',
-
-             ])
             ->add('image',  TextType::class, [
                 'required' => false,
                 'attr' => [

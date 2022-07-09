@@ -1,0 +1,54 @@
+{% extends 'admin/main.html.twig' %}
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/extra-libs/multicheck/multicheck.css') }}">
+    <link href="{{ asset('assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css')}}" rel="stylesheet">
+{%  endblock %}
+
+{% block main %}
+    <h1>Plan index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Filename</th>
+                <th>OriginalFilename</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for plan in plans %}
+            <tr>
+                <td>{{ plan.id }}</td>
+                <td>{{ plan.name }}</td>
+                <td>{{ plan.filename }}</td>
+                <td>{{ plan.originalFilename }}</td>
+                <td>
+                    <a href="{{ path('admin_plan_show', {'id': plan.id}) }}">show</a>
+                    <a href="{{ path('admin_plan_edit', {'id': plan.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_plan_new') }}">Create new</a>
+{% endblock %}
+{% block scripts %}
+    <!--This page JavaScript -->
+    <script src="{{ asset('assets/extra-libs/multicheck/datatable-checkbox-init.js')}}"></script>
+    <script src="{{ asset('assets/extra-libs/multicheck/jquery.multicheck.js')}}"></script>
+    <script src="{{ asset('assets/extra-libs/DataTables/datatables.min.js')}}"></script>
+    <script>
+        /****************************************
+         *       Basic Table                   *
+         ****************************************/
+        $('#zero_config').DataTable();
+    </script>
+
+{% endblock %}

@@ -33,9 +33,9 @@
                                 </div>
                             </label>
                         </div>
-                        <div class="col-lg-4">
+                        <div class="col-lg-2">
                                 {% if (category.image) is not null %}
-                                    <img src="{{ asset( category.image) }}" class="img-responsive w-100" id="image" alt="">
+                                    <img src="{{ asset( category.image) }}" class="img-responsive w-50" id="image" alt="">
                                 {% else %}
                                     <p>нет изображения</p>
                                 {% endif %}
@@ -66,13 +66,6 @@
                             {{ form_widget(form.description,
                                 {'attr':
                                     {'class': 'form-control','id':'description'}
-                                }) }}
-                        </label>
-                        <label class="col-lg-6" for="parent">
-                            Родительская категория
-                            {{ form_widget(form.parent,
-                                {'attr':
-                                    {'class': 'form-control','id':'parent'}
                                 }) }}
                         </label>
                         <div class="form-control col-lg-3">

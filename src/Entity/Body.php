@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\BodyRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -90,6 +92,15 @@ class Body
      */
     private $featured;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Plan::class, mappedBy="body")
+     */
+    private $plans;
+
+    public function __construct()
+    {
+        $this->plans = new ArrayCollection();
+    }
 
     public function getBodyCategory(): ?BodyCategory
     {
@@ -102,7 +113,6 @@ class Body
 
         return $this;
     }
-
 
     public function getId(): ?int
     {
@@ -181,8 +191,6 @@ class Body
         return $this;
     }
 
-
-
     public function getOrdering(): ?int
     {
         return $this->ordering;
@@ -227,6 +235,48 @@ class Body
     public function setMetadesc(?string $metadesc): self
     {
         $this->metadesc = $metadesc;
+
+        return $this;
+    }
+
+    public function getPlan(): ?Plan
+    {
+        return $this->plan;
+    }
+
+    public function setPlan(?Plan $plan): self
+    {
+        $this->plan = $plan;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Plan>
+     */
+    public function getPlans(): Collection
+    {
+        return $this->plans;
+    }
+
+    public function addPlan(Plan $plan): self
+    {
+        if (!$this->plans->contains($plan)) {
+            $this->plans[] = $plan;
+            $plan->setBody($this);
+        }
+
+        return $this;
+    }
+
+    public function removePlan(Plan $plan): self
+    {
+        if ($this->plans->removeElement($plan)) {
+            // set the owning side to null (unless already changed)
+            if ($plan->getBody() === $this) {
+                $plan->setBody(null);
+            }
+        }
 
         return $this;
     }

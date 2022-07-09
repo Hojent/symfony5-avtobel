@@ -37,20 +37,6 @@ class BodyCategory
      */
     private $slug;
 
-    // ...
-    /**
-     * One Category has Many Categories.
-     * @ORM\OneToMany(targetEntity="BodyCategory", mappedBy="parent")
-     */
-    private $children;
-
-    /**
-     * Many Categories have One Category.
-     * @ORM\ManyToOne(targetEntity="BodyCategory", inversedBy="children")
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
-     */
-    private $parent;
-
     /**
      * One Category has Many Bodies.
      * @ORM\OneToMany(targetEntity="Body", mappedBy="bodycategory")
