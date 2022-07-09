@@ -8,9 +8,9 @@
          <div class="col-12">
              <div class="card">
                  <div class="card-header">
-                     <h5 class="card-title">Материалы
+                     <h5 class="card-title">Автомобили
                          <span class="float-right">
-                             <a class="btn btn-success" href="{{ path('admin_post_new') }}">Добавить</a></span>
+                             <a class="btn btn-success" href="{{ path('admin_body_new') }}">Добавить</a></span>
                      </h5>
                  </div>
                  <div class="card-body">
@@ -20,35 +20,35 @@
                              <thead>
                              <tr>
                                  <th>ID</th>
-                                 <th>Title</th>
-                                 <th>Parent</th>
+                                 <th>Модель</th>
+                                 <th>Марка</th>
                                  <th>Published</th>
                                  <th>Created</th>
                                  <th>Actions</th>
                              </tr>
                              </thead>
                              <tbody>
-                             {% for post in posts %}
+                             {% for body in bodies %}
                                  <tr>
-                                     <td>{{ post.id}}</td>
+                                     <td>{{ body.id}}</td>
                                      <td>
-                                         <a href="{{ path('admin_post_edit', { 'id': post.id }) }}">{{ post.title}}</a>
+                                         <a href="{{ path('admin_body_edit', { 'id': post.id }) }}">{{ body.title}}</a>
                                      </td>
 
-                                     <td>{{ post.category}}</td>
-                                     <td>{{ post.published}}</td>
-                                     <td>{{ post.created|date('d-m-Y')}}</td>
+                                     <td>{{ body.category}}</td>
+                                     <td>{{ body.published}}</td>
+                                     <td>{{ body.created|date('d-m-Y')}}</td>
                                      <td>
-                                         <button type="button" class="btn btn-danger btn-xs w-md" data-toggle="modal" data-target="#removeModal{{ post.id }}">Del</button>
+                                         <button type="button" class="btn btn-danger btn-xs w-md" data-toggle="modal" data-target="#removeModal{{ body.id }}">Del</button>
                                          <!-- Modal -->
-                                         <div class="modal fade" id="removeModal{{ post.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                         <div class="modal fade" id="removeModal{{ body.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                              <div class="modal-dialog">
                                                  <div class="modal-content">
                                                      <div class="modal-body">
                                                          Удалить?
                                                      </div>
                                                      <div class="modal-footer">
-                                                         <form action="{{ path('admin_post_delete',
+                                                         <form action="{{ path('admin_body_delete',
                                                              {'id' :post.id}) }}" method="POST">
                                                              <input type="hidden" name="token" value="{{ csrf_token('delete-post') }}"/>                                                     <button type="submit" class="btn btn-danger">Remove</button>
                                                              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>

@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Body{% endblock %}
+
+{% block body %}
+    <h1>Body</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ body.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ body.title }}</td>
+            </tr>
+            <tr>
+                <th>Slug</th>
+                <td>{{ body.slug }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ body.description }}</td>
+            </tr>
+            <tr>
+                <th>Published</th>
+                <td>{{ body.published ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Created</th>
+                <td>{{ body.created ? body.created|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Images</th>
+                <td>{{ body.images }}</td>
+            </tr>
+            <tr>
+                <th>Ordering</th>
+                <td>{{ body.ordering }}</td>
+            </tr>
+            <tr>
+                <th>Metatitle</th>
+                <td>{{ body.metatitle }}</td>
+            </tr>
+            <tr>
+                <th>Metadesc</th>
+                <td>{{ body.metadesc }}</td>
+            </tr>
+            <tr>
+                <th>Metakey</th>
+                <td>{{ body.metakey }}</td>
+            </tr>
+            <tr>
+                <th>Featured</th>
+                <td>{{ body.featured ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_body_index') }}">back to list</a>
+
+    <a href="{{ path('app_admin_body_edit', {'id': body.id}) }}">edit</a>
+
+    {{ include('admin/body/_delete_form.html.twig') }}
+{% endblock %}

@@ -3,7 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Body;
-use App\Entity\Post;
+use App\Entity\BodyCategory;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -17,7 +17,7 @@ class BodyRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Post::class);
+        parent::__construct($registry, Body::class);
     }
 
     // /**
@@ -27,7 +27,7 @@ class BodyRepository extends ServiceEntityRepository
     public function findByCategory($value)
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.bodycat_id = :val')
+            ->andWhere('p.body_category_id = :val')
             ->andWhere('p.published = :active')
             ->setParameter('val', $value)
             ->setParameter('active', 1)
