@@ -239,27 +239,12 @@ class Body
         return $this;
     }
 
-    public function getPlan(): ?Plan
-    {
-        return $this->plan;
-    }
-
-    public function setPlan(?Plan $plan): self
-    {
-        $this->plan = $plan;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Plan>
-     */
     public function getPlans(): Collection
     {
         return $this->plans;
     }
 
-    public function addPlan(Plan $plan): self
+/*    public function addPlan(Plan $plan): self
     {
         if (!$this->plans->contains($plan)) {
             $this->plans[] = $plan;
@@ -279,6 +264,6 @@ class Body
         }
 
         return $this;
-    }
+    }*/
 
 }

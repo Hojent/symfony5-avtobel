@@ -132,23 +132,6 @@ class BodyCategory
         return $this;
     }
 
-    public function getParent()
-    {
-        return $this->parent;
-    }
-
-    public function setParent(BodyCategory $parent = null): self
-    {
-        $this->parent = $parent;
-
-        return $this;
-    }
-
-    public function getChildren()
-    {
-        return $this->children;
-    }
-
     public function getPublished(): ?bool
     {
         return $this->published;

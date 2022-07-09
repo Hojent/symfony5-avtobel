@@ -7,6 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=PlanRepository::class)
+ * @ORM\Table(name="plans")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Plan
 {

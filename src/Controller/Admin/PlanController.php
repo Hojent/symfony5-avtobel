@@ -31,16 +31,16 @@ class PlanController extends AbstractController
     public function new(Request $request, PlanRepository $planRepository): Response
     {
         $plan = new Plan();
-        $form = $this->createForm(PlanType::class, $plan);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
+       // $form = $this->createForm(PlanType::class, $plan);
+       // $form->handleRequest($request);
+/*        if ($form->isSubmitted() && $form->isValid()) {
             $planRepository->add($plan);
             return $this->redirectToRoute('admin_plan_index', [], Response::HTTP_SEE_OTHER);
-        }
+        }*/
 
         return $this->renderForm('admin/plan/new.html.twig', [
             'plan' => $plan,
-            'form' => $form,
+           // 'form' => $form,
         ]);
     }
 
