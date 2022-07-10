@@ -3,7 +3,7 @@
     {{ form_errors(form) }}
 </div>
 <div class="row">
-    <div class="col-lg-8">
+    <div class="col-lg-4">
         <label  for="images">Превью
             <div class="row ">
                 <div class="col-10">
@@ -23,12 +23,20 @@
             </div>
         </label>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-4">
         {% if (body.images) is not null %}
-            <img src="{{ asset( body.images) }}" class="img-responsive w-50" id="image" alt="">
+            <img src="{{ asset( body.images) }}" class="img-responsive w-30" id="image" alt="">
         {% else %}
             <p>нет изображения</p>
         {% endif %}
+    </div>
+    <div class="col=lg-4">
+        <h2>Чертежи</h2>
+        <ul>
+            {% for plan in body.getPlans() %}
+                <li>{{plan.name}}</li>
+            {% endfor %}
+        </ul>
     </div>
 </div>
 <div class="row">
