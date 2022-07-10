@@ -48,8 +48,7 @@ class BodyType extends AbstractType
                 'required' => false,
             ])
             ->add('bodycategory')
-
-           /* ->add('plans', EntityType::class, [
+/*            ->add('plans', EntityType::class, [
                 // looks for choices from this entity
                 'class' => Plan::class,
                 // uses the User.username property as the visible option string
@@ -57,7 +56,7 @@ class BodyType extends AbstractType
 
                 // used to render a select box, check boxes or radios
                  'multiple' => true,
-                 'expanded' => true,*/
+                 'expanded' => true])*/
 
 /*            ->add('plans', CollectionType::class, [
             'entry_type' => PlanType::class,

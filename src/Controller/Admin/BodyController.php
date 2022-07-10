@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Body;
+use App\Entity\Plan;
 use App\Form\BodyType;
 use App\Repository\BodyRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -105,9 +106,11 @@ class BodyController extends AbstractController
     /**
      * @Route("/{id}", name="admin_body_delete", methods={"POST"})
      */
-    public function delete(Request $request, Body $body, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Body $body): Response
     {
-        if ($this->isCsrfTokenValid('delete-body'.$body->getId(), $request->request->get('_token'))) {
+
+        if ($this->isCsrfTokenValid('delete-body', $request->request->get('token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($body);
             $entityManager->flush();
         }

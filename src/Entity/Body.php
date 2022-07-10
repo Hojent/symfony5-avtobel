@@ -223,6 +223,11 @@ class Body
         return $this->plans;
     }
 
+    public function __toString()
+    {
+        return $this->title;
+    }
+
     //эти функции пока не используются, но пусть остаются ****
     public function addPlan(Plan $plan): self
     {

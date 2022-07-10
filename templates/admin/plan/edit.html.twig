@@ -1,13 +1,36 @@
 {% extends 'admin/main.html.twig' %}
-
-{% block title %}Edit Plan{% endblock %}
-
 {% block main %}
-    <h1>Edit Plan</h1>
+    <div class="row">
+        <div class="col-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Редактировать</h5>
+                </div>
+                <div class="card-body">
+                    {{ include('admin/plan/_form.html.twig') }}
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <h2>{{ plan.body.bodycategory }}</h2>
+            <h3>{{ plan.body}}</h3>
+        </div>
+    </div>
 
-    {{ include('admin/plan/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('admin_plan_index') }}">back to list</a>
-
-    {{ include('admin/plan/_delete_form.html.twig') }}
 {% endblock %}
+
+{% block scripts %}
+    <script>
+        $(document).ready(function() {
+            $('#myframe').on('load', function () {
+                $(this).contents().on('click','.select',function () {
+                    var path = $(this).attr('data-path')
+                    $('#plan_filename').val(path);
+                    $('#image').attr('src', path)
+                    $('#bodyModal').modal('hide')
+                });
+            });
+        });
+    </script>
+{% endblock %}
+

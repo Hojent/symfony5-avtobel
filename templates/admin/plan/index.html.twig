@@ -3,44 +3,73 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/extra-libs/multicheck/multicheck.css') }}">
     <link href="{{ asset('assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css')}}" rel="stylesheet">
 {%  endblock %}
-
 {% block main %}
-    <h1>Plan index</h1>
+     <div class="row">
+         <div class="col-12">
+             <div class="card">
+                 <div class="card-header">
+                     <h5 class="card-title">Чертежи
+                         <span class="float-right">
+                             <a class="btn btn-success" href="{{ path('admin_plan_new') }}">Добавить</a></span>
+                     </h5>
+                 </div>
+                 <div class="card-body">
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Filename</th>
-                <th>OriginalFilename</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for plan in plans %}
-            <tr>
-                <td>{{ plan.id }}</td>
-                <td>{{ plan.name }}</td>
-                <td>{{ plan.filename }}</td>
-                <td>{{ plan.originalFilename }}</td>
-                <td>
-                    <a href="{{ path('admin_plan_show', {'id': plan.id}) }}">show</a>
-                    <a href="{{ path('admin_plan_edit', {'id': plan.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                     <div class="table-responsive">
+                         <table id="zero_config" class="table table-striped table-bordered">
+                             <thead>
+                             <tr>
+                                 <th>ID</th>
+                                 <th>Название</th>
+                                 <th>Модель</th>
+                                 <th>Файл</th>
+                                 <th>Actions</th>
+                             </tr>
+                             </thead>
+                             <tbody>
+                             {% for plan in plans %}
+                                 <tr>
+                                     <td>{{ plan.id}}</td>
+                                     <td>
+                                         <a href="{{ path('admin_plan_edit', { 'id': plan.id }) }}">{{ plan.name}}</a>
+                                     </td>
 
-    <a href="{{ path('admin_plan_new') }}">Create new</a>
+                                     <td>{{ plan.body}}</td>
+                                     <td>{{ plan.filename}}</td>
+                                     <td>
+                                         <button type="button" class="btn btn-danger btn-xs w-md" data-toggle="modal" data-target="#removeModal{{ plan.id }}">Del</button>
+                                         <!-- Modal -->
+                                         <div class="modal fade" id="removeModal{{ plan.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                             <div class="modal-dialog">
+                                                 <div class="modal-content">
+                                                     <div class="modal-body">
+                                                         Удалить?
+                                                     </div>
+                                                     <div class="modal-footer">
+                                                         <form action="{{ path('admin_plan_delete',
+                                                             {'id' :plan.id}) }}" method="POST">
+                                                             <input type="hidden" name="token" value="{{ csrf_token('delete-plan') }}"/>
+                                                             <button type="submit" class="btn btn-danger">Remove</button>
+                                                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                                         </form>
+                                                     </div>
+                                                 </div><!-- /.modal-content -->
+                                             </div><!-- /.modal-dialog -->
+                                         </div><!-- /.modal -->
+                                     </td>
+                                 </tr>
+                             {% endfor %}
+                             </tbody>
+                         </table>
+                     </div>
+
+                 </div>
+             </div>
+         </div>
+    </div>
 {% endblock %}
 {% block scripts %}
-    <!--This page JavaScript -->
+<!--This page JavaScript -->
     <script src="{{ asset('assets/extra-libs/multicheck/datatable-checkbox-init.js')}}"></script>
     <script src="{{ asset('assets/extra-libs/multicheck/jquery.multicheck.js')}}"></script>
     <script src="{{ asset('assets/extra-libs/DataTables/datatables.min.js')}}"></script>
@@ -52,3 +81,7 @@
     </script>
 
 {% endblock %}
+
+
+
+

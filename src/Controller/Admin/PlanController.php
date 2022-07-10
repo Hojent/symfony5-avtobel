@@ -9,6 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 /**
  * @Route("/admin/plan")
@@ -28,19 +30,30 @@ class PlanController extends AbstractController
     /**
      * @Route("/new", name="admin_plan_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, PlanRepository $planRepository): Response
+    public function new(Request $request,
+                        EntityManagerInterface $entityManager): Response
     {
         $plan = new Plan();
-       // $form = $this->createForm(PlanType::class, $plan);
-       // $form->handleRequest($request);
-/*        if ($form->isSubmitted() && $form->isValid()) {
-            $planRepository->add($plan);
+        $form = $this->createForm(PlanType::class, $plan);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $filename = $form->get('filename')->getData();
+            if ($filename) {
+                $plan->setFilename($filename);
+            }
+
+            $entityManager->persist($plan);
+            $entityManager->flush();
+
             return $this->redirectToRoute('admin_plan_index', [], Response::HTTP_SEE_OTHER);
-        }*/
+        }
 
         return $this->renderForm('admin/plan/new.html.twig', [
             'plan' => $plan,
-           // 'form' => $form,
+            'form' => $form,
         ]);
     }
 
@@ -76,10 +89,13 @@ class PlanController extends AbstractController
     /**
      * @Route("/{id}", name="admin_plan_delete", methods={"POST"})
      */
-    public function delete(Request $request, Plan $plan, PlanRepository $planRepository): Response
+    public function delete(Request $request, Plan $plan, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('plan-delete'.$plan->getId(), $request->request->get('_token'))) {
-            $planRepository->remove($plan);
+
+        if ($this->isCsrfTokenValid('delete-plan', $request->request->get('token')))
+        {
+            $entityManager->remove($plan);
+            $entityManager->flush();
         }
 
         return $this->redirectToRoute('admin_plan_index', [], Response::HTTP_SEE_OTHER);

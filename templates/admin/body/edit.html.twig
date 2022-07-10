@@ -1,15 +1,18 @@
 {% extends 'admin/main.html.twig' %}
 {% block main %}
 <div class="row">
-    <div class="col-12">
+    <div class="col-8">
         <div class="card">
             <div class="card-header">
-                <h5 class="card-title">Редактировать чертеж</h5>
+                <h5 class="card-title">Редактировать модель</h5>
             </div>
             <div class="card-body">
                 {{ include('admin/body/_form.html.twig') }}
             </div>
         </div>
+    </div>
+    <div class="col-4">
+        {{ body.bodycategory}}
     </div>
 </div>
 

@@ -35,7 +35,7 @@ class Plan
     private $originalFilename;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Body::class, inversedBy="plans")
+     * @ORM\ManyToOne(targetEntity="Body", inversedBy="plans")
      * @ORM\JoinColumn(name="body_id", referencedColumnName="id")
      */
     private $body;
@@ -91,5 +91,10 @@ class Plan
         $this->body = $body;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 }

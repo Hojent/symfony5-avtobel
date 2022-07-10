@@ -1,11 +1,31 @@
 {% extends 'admin/main.html.twig' %}
+{% block main %}
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Добавить чертеж</h5>
+                </div>
+                <div class="card-body">
+                    {{ include('admin/plan/_form.html.twig') }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
 
-{% block title %}New Plan{% endblock %}
+{% block scripts %}
+    <script>
+        $(document).ready(function() {
+            $('#myframe').on('load', function () {
+                $(this).contents().on('click','.select',function () {
+                    var path = $(this).attr('data-path')
+                    $('#plan_filename').val(path);
+                    $('#image').attr('src', path)
+                    $('#bodyModal').modal('hide')
+                });
+            });
 
-{% block body %}
-    <h1>Create new Plan</h1>
-
-    {{ include('admin/plan/_form.html.twig') }}
-
-    <a href="{{ path('admin_plan_index') }}">back to list</a>
+        });
+    </script>
 {% endblock %}
