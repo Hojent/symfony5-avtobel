@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 /**
  * @Route("/admin/body")
@@ -29,13 +30,39 @@ class BodyController extends AbstractController
     /**
      * @Route("/new", name="admin_body_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request,
+                        EntityManagerInterface $entityManager,
+                        SluggerInterface $slugger
+                    ): Response
     {
         $body = new Body();
         $form = $this->createForm(BodyType::class, $body);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if(empty($slug)) {
+                $slug = $slugger->slug($form->get('title')->getData());
+                $mod = $slugger->slug($form->get('bodycategory')
+                                 ->getData() ?? 'draft');
+                $body->setSlug($slug.'-'.$mod);
+            } else {
+                $body->setSlug($slug);
+            }
+            if(empty($datetime)) {
+                $body->setCreated(new \DateTime());
+            } else {
+                $body->setCreated($datetime);
+            }
+            if(empty($metatitle)) {
+                $body->setMetatitle($form->get('title')->getData());
+            } else {
+                $body->setMetatitle($metatitle);
+            }
+            $image = $form->get('images')->getData();
+            if ($image) {
+                $body->setImages($image);
+            }
+
             $entityManager->persist($body);
             $entityManager->flush();
 
@@ -65,13 +92,10 @@ class BodyController extends AbstractController
     {
         $form = $this->createForm(BodyType::class, $body);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
-
             return $this->redirectToRoute('admin_body_index', [], Response::HTTP_SEE_OTHER);
         }
-
         return $this->renderForm('admin/body/edit.html.twig', [
             'body' => $body,
             'form' => $form,
@@ -83,7 +107,7 @@ class BodyController extends AbstractController
      */
     public function delete(Request $request, Body $body, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$body->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete-body'.$body->getId(), $request->request->get('_token'))) {
             $entityManager->remove($body);
             $entityManager->flush();
         }

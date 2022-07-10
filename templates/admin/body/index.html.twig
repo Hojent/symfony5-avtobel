@@ -32,10 +32,10 @@
                                  <tr>
                                      <td>{{ body.id}}</td>
                                      <td>
-                                         <a href="{{ path('admin_body_edit', { 'id': post.id }) }}">{{ body.title}}</a>
+                                         <a href="{{ path('admin_body_edit', { 'id': body.id }) }}">{{ body.title}}</a>
                                      </td>
 
-                                     <td>{{ body.category}}</td>
+                                     <td>{{ body.bodycategory}}</td>
                                      <td>{{ body.published}}</td>
                                      <td>{{ body.created|date('d-m-Y')}}</td>
                                      <td>
@@ -49,8 +49,8 @@
                                                      </div>
                                                      <div class="modal-footer">
                                                          <form action="{{ path('admin_body_delete',
-                                                             {'id' :post.id}) }}" method="POST">
-                                                             <input type="hidden" name="token" value="{{ csrf_token('delete-post') }}"/>                                                     <button type="submit" class="btn btn-danger">Remove</button>
+                                                             {'id' :body.id}) }}" method="POST">
+                                                             <input type="hidden" name="token" value="{{ csrf_token('delete-body') }}"/>                                                     <button type="submit" class="btn btn-danger">Remove</button>
                                                              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                                                          </form>
                                                      </div>

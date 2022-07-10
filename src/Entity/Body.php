@@ -32,8 +32,8 @@ class Body
     private $title;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=true)
-     * @Assert\NotBlank
+     * @ORM\Column(type="string", length=255, nullable=true)
+     *
      */
     private $slug;
 
@@ -48,13 +48,6 @@ class Body
     private $published;
 
     /**
-     * Many Bodies have One BodyCategory.
-     * @ORM\ManyToOne(targetEntity="BodyCategory", inversedBy="bodies")
-     * @ORM\JoinColumn(name="body_category_id", referencedColumnName="id")
-     */
-    private $bodycategory;
-
-    /**
      * @ORM\Column(name="created", type="date", nullable=true,
      *      )
      *
@@ -66,11 +59,6 @@ class Body
      * @ORM\Column(type="text", nullable=true)
      */
     private $images;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $ordering;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -88,11 +76,14 @@ class Body
     private $metakey;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
+     * Many Bodies have One BodyCategory.
+     * @ORM\ManyToOne(targetEntity="BodyCategory", inversedBy="bodies")
+     * @ORM\JoinColumn(name="body_category_id", referencedColumnName="id")
      */
-    private $featured;
+    private $bodycategory;
 
     /**
+     * One Body has Many Plans
      * @ORM\OneToMany(targetEntity=Plan::class, mappedBy="body")
      */
     private $plans;
@@ -191,18 +182,6 @@ class Body
         return $this;
     }
 
-    public function getOrdering(): ?int
-    {
-        return $this->ordering;
-    }
-
-    public function setOrdering(?int $ordering): self
-    {
-        $this->ordering = $ordering;
-
-        return $this;
-    }
-
     public function getMetatitle(): ?string
     {
         return $this->metatitle;
@@ -244,7 +223,8 @@ class Body
         return $this->plans;
     }
 
-/*    public function addPlan(Plan $plan): self
+    //эти функции пока не используются, но пусть остаются ****
+    public function addPlan(Plan $plan): self
     {
         if (!$this->plans->contains($plan)) {
             $this->plans[] = $plan;
@@ -264,6 +244,7 @@ class Body
         }
 
         return $this;
-    }*/
+    }
+    // *******************************************************
 
 }

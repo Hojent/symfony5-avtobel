@@ -60,9 +60,9 @@ class BodyCategoryController extends AbstractController
             } else {
                 $category->setMetatitle($metatitle);
             }
-            $image = $form->get('images')->getData();
+            $image = $form->get('image')->getData();
             if ($image) {
-                $category->setImages($image);
+                $category->setImage($image);
             }
             $entityManager->persist($category);
 

@@ -19,7 +19,7 @@ class BodyCategoryType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, [
-                'required' => false
+                'required' => true
             ])
             ->add('slug', TextType::class, [
                 'required' => true,

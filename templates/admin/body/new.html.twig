@@ -1,11 +1,43 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/main.html.twig' %}
+{% block main %}
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Добавить чертеж</h5>
+                </div>
+                <div class="card-body">
+                    {{ include('admin/body/_form.html.twig') }}
 
-{% block title %}New Body{% endblock %}
+                    <a href="{{ path('admin_body_index') }}">back to list</a>
 
-{% block body %}
-    <h1>Create new Body</h1>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    {{ include('admin/body/_form.html.twig') }}
 
-    <a href="{{ path('app_admin_body_index') }}">back to list</a>
 {% endblock %}
+
+{% block scripts %}
+    <script>
+        $(document).ready(function() {
+            $('#myframe').on('load', function () {
+                $(this).contents().on('click','.select',function () {
+                    var path = $(this).attr('data-path')
+                    $('#body_images').val(path);
+                    $('#image').attr('src', path)
+                    $('#bodyModal').modal('hide')
+                });
+            });
+
+        });
+    </script>
+{% endblock %}
+
+
+
+
+
+
+
