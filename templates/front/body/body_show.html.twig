@@ -17,9 +17,10 @@
                 {% endif %}
             </div>
             <div class="col-4">
-                <h3>Модели:</h3>
+                <h3>Чертежи:</h3>
                 {% for plan in body.plans %}
-                    <p class="lead">{{ plan.name }}</p>
+                    <p class="lead">
+                        <a href="{{ asset(plan.filename) }}" class="modal-xl" target="_blank">{{ plan.name }}</a></p>
                 {% endfor %}
             </div>
             <div class="col-6">

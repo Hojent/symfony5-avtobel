@@ -17,7 +17,7 @@
                 {% for body in vendor.bodies %}
                     <ul class="sidebar m-0">
                         <a href="{{ path('app_body_show', {'slug':body.slug}) }}">
-                            <li class="sidebar-item">{{ body.title }}</li></a>
+                            <li style="list-style-type:none">{{ body.title }}</li></a>
                     </ul>
                 {% endfor %}
                 </div>
