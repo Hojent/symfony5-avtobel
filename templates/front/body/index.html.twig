@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Автомобили в Беларуси. ремонт автомобиля своими руками, кузовные размеры, ремонт кузова, ремонт.{% endblock %}
+
+{% block body %}
+    <section class="container">
+        <div class="jumbotron">
+            <div class="row left">
+            {% for vendor in vendors %}
+                <div class="col-1"><img src="{{ vendor.image }}"
+                                        class="float-left w-100">
+                </div>
+                <div class="col-3">
+                <h5 class="text text-success">
+                    {{ vendor.title }}
+                </h5>
+                {% for body in vendor.bodies %}
+                    <ul class="sidebar m-0">
+                        <a href="{{ path('app_body_show', {'slug':body.slug}) }}">
+                            <li class="sidebar-item">{{ body.title }}</li></a>
+                    </ul>
+                {% endfor %}
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
+

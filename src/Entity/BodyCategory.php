@@ -192,7 +192,7 @@ class BodyCategory
         return $this;
     }
 
-    public function getBodies() :? Body
+    public function getBodies()
     {
         return $this->bodies;
     }
