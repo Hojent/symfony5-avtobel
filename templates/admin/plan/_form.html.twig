@@ -55,6 +55,18 @@
                 {'class': 'form-control','id':'body'}
             }) }}
     </label>
+    <div class="form-check col-lg-4">
+            {{ form_widget(form.diagonal,
+                {'attr':
+                    {'class': 'form-check-input',
+                        'id':'diagonal',
+                        'type':'checkbox'
+                    }
+                }) }}
+            <label class="form-check-label" for="diagonal">
+                Есть диагонали
+            </label>
+    </div>
 </div>
 
 <a href="{{ path('admin_plan_index') }}" class="btn btn-link">

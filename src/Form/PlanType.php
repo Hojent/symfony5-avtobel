@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Plan;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -17,6 +18,9 @@ class PlanType extends AbstractType
             ->add('filename')
             ->add('originalFilename')
             ->add('body')
+            ->add('diagonal', CheckboxType::class, [
+                'required' => false,
+            ])
         ;
 
         $builder->add('save',  SubmitType::class, [

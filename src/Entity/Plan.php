@@ -35,8 +35,7 @@ class Plan
     private $originalFilename;
 
     /**
-     * @ORM\Column(type="smallint", nullable=false,
-     *     options={"default" : 0})
+     *@ORM\Column(type="boolean")
      */
     private $diagonal;
 
