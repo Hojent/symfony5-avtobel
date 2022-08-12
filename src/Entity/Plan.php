@@ -35,6 +35,12 @@ class Plan
     private $originalFilename;
 
     /**
+     * @ORM\Column(type="smallint", nullable=false,
+     *     options={"default" : 0})
+     */
+    private $diagonal;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Body", inversedBy="plans")
      * @ORM\JoinColumn(name="body_id", referencedColumnName="id")
      */
@@ -79,6 +85,22 @@ class Plan
         $this->originalFilename = $originalFilename;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDiagonal()
+    {
+        return $this->diagonal;
+    }
+
+    /**
+     * @param mixed $diagonal
+     */
+    public function setDiagonal($diagonal): void
+    {
+        $this->diagonal = $diagonal;
     }
 
     public function getBody(): ?Body
