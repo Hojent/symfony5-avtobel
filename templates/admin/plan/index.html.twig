@@ -22,7 +22,7 @@
                                  <th>ID</th>
                                  <th>Название</th>
                                  <th>Модель</th>
-                                 <th>Файл</th>
+                                 <th>Диагонали</th>
                                  <th>Actions</th>
                              </tr>
                              </thead>
@@ -35,7 +35,14 @@
                                      </td>
 
                                      <td>{{ plan.body}}</td>
-                                     <td>{{ plan.filename}}</td>
+                                     <td>{% if plan.diagonal %}
+                                            <span class="badge badge-success badge-sm">
+                                                ДА</span>
+                                         {% else %}
+                                             <span class="badge badge-danger badge-sm">
+                                                НЕТ</span>
+                                         {%  endif %}
+                                     </td>
                                      <td>
                                          <button type="button" class="btn btn-danger btn-xs w-md" data-toggle="modal" data-target="#removeModal{{ plan.id }}">Del</button>
                                          <!-- Modal -->
