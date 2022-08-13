@@ -14,12 +14,10 @@
                 <h5 class="text text-success">
                     {{ vendor.title }}
                 </h5>
-                {% for body in vendor.bodies %}
-                    <ul class="sidebar m-0">
-                        <a href="{{ path('app_body_show', {'slug':body.slug}) }}">
-                            <li style="list-style-type:none">{{ body.title }}</li></a>
-                    </ul>
+			    {% for body in vendor.bodies %}
+                    <a href="{{ path('app_body_show', {'slug':body.slug}) }}"> {{ body.title }}</a>,                
                 {% endfor %}
+				<hr>
                 </div>
             {% endfor %}
             </div>
