@@ -10,7 +10,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class AdminAuthSecurityController extends AbstractController
 {
     /**
-     * @Route("/admin/login", name="app_admin_login")
+     * @Route("/german_login", name="app_admin_login")
      */
     public function index(AuthenticationUtils $authenticationUtils): Response
     {
@@ -27,7 +27,7 @@ class AdminAuthSecurityController extends AbstractController
     }
 
     /**
-     * @Route("/admin/logout", name="app_admin_logout")
+     * @Route("/admin_logout", name="app_admin_logout")
      */
     public function logout(): void
     {
