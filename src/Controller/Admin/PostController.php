@@ -12,8 +12,10 @@ use App\Entity\Post;
 use App\Form\PostType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
+ * @IsGranted("ROLE_ADMIN")
  * @Route("/admin/posts")
  */
 class PostController extends AbstractController
