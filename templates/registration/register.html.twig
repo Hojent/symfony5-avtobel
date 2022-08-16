@@ -22,7 +22,10 @@
             label: 'Password',
             'attr': {'class':'form-control'}} ) }}
 
-        <button type="submit" class="btn mt-2 btn-info">Register</button>
+        <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+             <button type="submit" class="btn btn-info">Register</button>
+            <a href="{{ path('app_login') }}" class="btn btn-default">Login</a>
+        </div>
     {{ form_end(registrationForm) }}
                     </div>
                 </div>

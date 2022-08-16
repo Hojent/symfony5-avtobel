@@ -64,7 +64,7 @@ security:
     access_control:
          - { path: ^/admin/german_login, roles: PUBLIC_ACCESS }
          - { path: ^/admin, roles: ROLE_ADMIN }
-         - { path: ^/body/, roles: ROLE_USER }
+         - { path: ^/body/, roles: ROLE_USER_LEGAL }
 
 when@test:
     security:
