@@ -27,6 +27,7 @@ class BodyController extends AbstractController
      */
     public function bodyShow(Body $body): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         return $this->render('front/body/body_show.html.twig', [
             'body' => $body,
         ]);

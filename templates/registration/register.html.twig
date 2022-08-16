@@ -1,21 +1,33 @@
-{% extends 'base.html.twig' %}
+{% extends 'sec.html.twig' %}
 
-{% block title %}Register{% endblock %}
+
+{% block title %}Автомобили кузова{% endblock %}
 
 {% block body %}
-    {% for flash_error in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-    {% endfor %}
-
-    <h1>Register</h1>
-
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
+<section class="container py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-5">
+                <div class="card shadow-lg border-0 rounded-lg mt-5">
+                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Регистрация</h3></div>
+                    <div class="card-body">
+                       {% for flash_error in app.flashes('verify_email_error') %}
+                       <div class="alert alert-danger" role="alert">
+                           {{ flash_error }}
+                       </div>
+                       {% endfor %}
+       {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.email, {'attr': {'class':'form-control'}}) }}
         {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+            label: 'Password',
+            'attr': {'class':'form-control'}} ) }}
 
-        <button type="submit" class="btn">Register</button>
+        <button type="submit" class="btn mt-2 btn-info">Register</button>
     {{ form_end(registrationForm) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}
