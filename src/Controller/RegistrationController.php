@@ -18,11 +18,14 @@ use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class RegistrationController extends AbstractController
 {
-   // private EmailVerifier $emailVerifier;
+    private $emailVerifier;
+    private $entityManager;
 
-    public function __construct(EmailVerifier $emailVerifier)
+    public function __construct(EmailVerifier $emailVerifier,
+                                EntityManagerInterface $manager)
     {
         $this->emailVerifier = $emailVerifier;
+        $this->entityManager = $manager;
     }
 
     /**
@@ -42,14 +45,14 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-
+            $user->setRoles(['ROLE_USER']);
             $entityManager->persist($user);
             $entityManager->flush();
 
             // generate a signed url and email it to the user
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
                 (new TemplatedEmail())
-                    ->from(new Address('admin@web-project.by', 'web-project-symfony'))
+                    ->from(new Address('info@avtobelarus.com', 'avtobelarus.com mailer'))
                     ->to($user->getEmail())
                     ->subject('Please Confirm your Email')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
@@ -82,7 +85,14 @@ class RegistrationController extends AbstractController
 
         // @TODO Change the redirect on success and handle or remove the flash message in your templates
         $this->addFlash('success', 'Your email address has been verified.');
+        $this->setRoleLegal($this->getUser());
+        return $this->redirectToRoute('app_login');
+    }
 
-        return $this->redirectToRoute('app_register');
+    private function setRoleLegal(User $user)
+    {
+        $user->setRoles(['ROLE_USER_LEGAL']);
+        $this->entityManager->persist($user);
+        $this->entityManager->flush();
     }
 }
