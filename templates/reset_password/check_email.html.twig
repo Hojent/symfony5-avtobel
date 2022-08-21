@@ -1,0 +1,22 @@
+{% extends 'sec.html.twig' %}
+{% block title %}Кузовные размеры - регистрация пользователя{% endblock %}
+
+{% block body %}
+<section class="container py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-5">
+                <div class="card shadow-lg border-0 rounded-lg mt-5">
+                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Сброс пароля</h3></div>
+                    <div class="card-body">
+    <p>
+        Если указанный вами адрес зарегистрирован в нашей базе данных, то на него придет письмо, содержащее ссылку для изменения пароля. </p>
+                        <p>Пожалуйста, проверьте ваш почтовый ящик. Если письмо не пришло, проверьте папку СПАМ или <a href="{{ path('app_forgot_password_request') }}">повторите запрос сброса пароля</a></p>
+                        <p>Внимание! Ссылка действует 1 час.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
