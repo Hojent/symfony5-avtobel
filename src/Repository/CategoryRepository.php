@@ -24,7 +24,7 @@ class CategoryRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('c')
             ->where('c.published = 1')
             ->getQuery()
-            ->getArrayResult()
+            ->getResult()
             ;
     }
 

@@ -122,6 +122,9 @@
     "phpstan/phpdoc-parser": {
         "version": "1.2.0"
     },
+    "presta/sitemap-bundle": {
+        "version": "v3.3.0"
+    },
     "psr/cache": {
         "version": "1.0.1"
     },

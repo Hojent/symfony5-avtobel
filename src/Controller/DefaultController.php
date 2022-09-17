@@ -13,7 +13,7 @@ use App\Entity\Post;
 class DefaultController extends AbstractController
 {
     /**
-     * @Route("/", name="home")
+     * @Route("/", name="home", options={"sitemap" = true})
      */
     public function index(PostRepository $post): Response
     {

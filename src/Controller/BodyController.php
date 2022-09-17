@@ -13,7 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 class BodyController extends AbstractController
 {
     /**
-     * @Route("/body", name="app_body")
+     * @Route("/body", name="app_body", options={"sitemap" = true})
      */
     public function index(BodyCategoryRepository $repository): Response
     {

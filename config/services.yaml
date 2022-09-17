@@ -6,6 +6,8 @@
 parameters:
     app.images_dir: '%kernel.project_dir%/public/assets/images/stories/illustration'
     app.site_url: '%env(APP_SITE_URL)%'
+    router.request_context.host:   '%env(SITE_URL)%'
+    router.request_context.scheme: '%env(SITE_SCHEME)%'
 
 services:
     # default configuration for services in *this* file
