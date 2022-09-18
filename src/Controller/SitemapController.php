@@ -29,7 +29,7 @@ class SitemapController extends AbstractController
     }
 
     /**
-     * @Route("/sitemap", name="sitemap", defaults={"_format"="xml"})
+     * @Route("/sitemap", name="sitemap")
      */
     public function index(ManagerRegistry $doctrine, Request $request) : Response
     {

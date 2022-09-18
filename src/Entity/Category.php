@@ -7,6 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=CategoryRepository::class)
@@ -205,6 +206,11 @@ class Category
         $this->created_time = $created_time;
 
         return $this;
+    }
+
+    public function getPosts()
+    {
+        return $this->posts;
     }
 
     public function __toString()
