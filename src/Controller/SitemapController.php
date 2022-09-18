@@ -14,12 +14,25 @@ use App\Repository\BodyRepository;
 
 class SitemapController extends AbstractController
 {
+
+    private $posts;
+    private $categories;
+    private $bodies;
+    private $bodyCategories;
+
+    public function __construct(PostRepository $posts, CategoryRepository $categories,
+                                BodyRepository $bodies,BodyCategoryRepository $bodyCategories)
+    {
+        $this->posts = $posts;
+        $this->categories = $categories;
+        $this->bodies = $bodies;
+        $this->bodyCategories = $bodyCategories;
+    }
+
     /**
-     * @Route("/sitemap/sitemap.xml", name="sitemap", defaults={"_format"="xml"})
+     * @Route("/sitemap.xml", name="sitemap", defaults={"_format"="xml"})
      */
-    public function index(ManagerRegistry $doctrine, PostRepository $posts,
-                          CategoryRepository $categories, BodyRepository $bodies,
-                          BodyCategoryRepository $bodyCategories, Request $request): Response
+    public function index(ManagerRegistry $doctrine,  Request $request): Response
     {
         $em = $doctrine->getManager();
         $urls = [];
@@ -35,13 +48,13 @@ class SitemapController extends AbstractController
 
         // add dynamic urls, like blog posts from your DB
 
-        foreach ($categories->findActive() as $category) {
+        foreach ($this->categories->findActive() as $category) {
             if (!$category->getParent()) {
                 $urls[] = [
                     'loc' => $this->generateUrl('categories_list',
                         ['category' => $category->getId()])
                 ];
-                foreach ($categories->findChildrenByParent($category->getId())
+                foreach ($this->categories->findChildrenByParent($category->getId())
                          as $item) {
                     $urls[] = [
                         'loc' => $this->generateUrl('categories_list',
@@ -51,7 +64,7 @@ class SitemapController extends AbstractController
             }
         }
 
-        foreach ($posts->findAll() as $post) {
+        foreach ($this->posts->findAll() as $post) {
             $urls[] = [
                 'loc' => $this->generateUrl('post_show',
                     ['alias' => $post->getAlias()])

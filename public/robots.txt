@@ -2,5 +2,6 @@ User-agent: *
 Disallow: /assets/
 Disallow: /build/
 Disallow: /bundels/
+Disallow: /manager/*
 
 Sitemap: https://avtobelarus.com/sitemap.xml
