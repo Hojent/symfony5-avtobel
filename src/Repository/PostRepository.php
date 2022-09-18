@@ -19,6 +19,14 @@ class PostRepository extends ServiceEntityRepository
         parent::__construct($registry, Post::class);
     }
 
+    public function findActive()
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.published = 1')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
     // /**
     //  * @return Post[] Returns an array of Post objects
     //  */

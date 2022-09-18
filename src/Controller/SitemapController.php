@@ -21,18 +21,39 @@ class SitemapController extends AbstractController
     private $bodyCategories;
 
     public function __construct(PostRepository $posts, CategoryRepository $categories,
-                                BodyRepository $bodies,BodyCategoryRepository $bodyCategories)
+                                BodyCategoryRepository $bodyCategories)
     {
         $this->posts = $posts;
         $this->categories = $categories;
-        $this->bodies = $bodies;
         $this->bodyCategories = $bodyCategories;
     }
 
     /**
-     * @Route("/sitemap.xml", name="sitemap", defaults={"_format"="xml"})
+     * @Route("/sitemap", name="sitemap", defaults={"_format"="xml"})
      */
-    public function index(ManagerRegistry $doctrine,  Request $request): Response
+    public function index(ManagerRegistry $doctrine, Request $request) : Response
+    {
+        $em = $doctrine->getManager();
+        $categories = $this->categories->findActive();
+        $listPosts = $this->posts->findActive();
+        $bodyCategories = $this->bodyCategories->findActive();
+
+        $response = new Response(
+            $this->render('sitemap/sitemap.html.twig', [
+                'posts' => $listPosts,
+                'categories' => $categories,
+                'bodies' => $bodyCategories
+                //'hostname' => $hostname
+            ]),
+            200
+        );
+        return $response;
+    }
+
+    /**
+     * @Route("/sitemap.xml", name="sitemapXml", defaults={"_format"="xml"})
+     */
+    public function indexXml(ManagerRegistry $doctrine,  Request $request): Response
     {
         $em = $doctrine->getManager();
         $urls = [];
