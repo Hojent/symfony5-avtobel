@@ -4,10 +4,12 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationFormType;
+use App\Message\ClearBadUserMessage;
 use App\Security\EmailVerifier;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use function Symfony\Component\DependencyInjection\Loader\Configurator\env;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mime\Address;
@@ -15,17 +17,23 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
+use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\Messenger\Stamp\DelayStamp;
+use Symfony\Component\Messenger\Envelope;
 
 class RegistrationController extends AbstractController
 {
     private $emailVerifier;
     private $entityManager;
+    private $bus;
 
     public function __construct(EmailVerifier $emailVerifier,
-                                EntityManagerInterface $manager)
+                                EntityManagerInterface $manager,
+                                MessageBusInterface $bus)
     {
         $this->emailVerifier = $emailVerifier;
         $this->entityManager = $manager;
+        $this->bus = $bus;
     }
 
     /**
@@ -57,7 +65,10 @@ class RegistrationController extends AbstractController
                     ->subject('Please Confirm your Email')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
-            // do anything else you need here, like send an email
+            //job for delete unconfirmed users
+         // $this->bus->dispatch(new ClearBadUserMessage($user->getEmail()));
+            $delay = $_ENV['QUEUE_DELAY'];
+            $this->bus->dispatch(new Envelope(new ClearBadUserMessage($user->getEmail()), [ new DelayStamp($delay)]));
 
             //return $this->redirectToRoute('app_after_register', ['']);
             return $this->render('registration/after_register.html.twig');
