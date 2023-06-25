@@ -67,8 +67,8 @@ class RegistrationController extends AbstractController
             );
             //job for delete unconfirmed users
          // $this->bus->dispatch(new ClearBadUserMessage($user->getEmail()));
-            $delay = $_ENV['QUEUE_DELAY'];
-            $this->bus->dispatch(new Envelope(new ClearBadUserMessage($user->getEmail()), [ new DelayStamp($delay)]));
+         //   $delay = $_ENV['QUEUE_DELAY'];
+         //   $this->bus->dispatch(new Envelope(new ClearBadUserMessage($user->getEmail()), [ new DelayStamp($delay)]));
 
             //return $this->redirectToRoute('app_after_register', ['']);
             return $this->render('registration/after_register.html.twig');
